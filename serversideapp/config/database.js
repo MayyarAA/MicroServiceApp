@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-require('dotenv').config();
-//const env = require('../config/.env')
+const dotenv = require('dotenv');
+dotenv.config();
 
 const url2 = process.env.ATLAS_URI;
 const connectionParams = {
