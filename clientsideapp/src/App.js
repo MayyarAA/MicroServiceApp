@@ -1,25 +1,31 @@
 import logo from './logo.svg';
+import { HashRouter as Router, Route, Redirect, Link } from 'react-router-dom';
 import './App.css';
-
+import UserProfileCentralPage from './Pages/UserProfileCentralPage';
+import { Button } from '@material-ui/core';
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	return (
+		<div className='App'>
+			<Router>
+				{/* <Route path='/' component={UserProfileCentralPage} /> */}
+
+				<nav>
+					<ul>
+						<li>
+							<Link to='/UserProfileCentralPage'>
+								Link to UserProfileCentralPage
+							</Link>
+						</li>
+					</ul>
+				</nav>
+				<Route
+					path='/UserProfileCentralPage'
+					component={UserProfileCentralPage}
+				/>
+			</Router>
+			{/* <Button> Go to UserProfile</Button> */}
+		</div>
+	);
 }
 
 export default App;
