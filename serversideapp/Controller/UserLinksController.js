@@ -25,7 +25,8 @@ router.route('/getLink/:userName').get((req, res) => {
 	// })
 	// 	.then((result) => res.status(200).json(result.toJSON))
 	// 	.catch((error) => res.status(400).json(`Error ${error}`));
-	UserLinks.findById(req.params.id)
+	// UserLinks.findById(req.params.userName)
+	UserLinks.find({ userName: req.params.userName })
 		.then((links) => res.json(links))
 		.catch((error) => res.status(400).json(`Error ${error}`));
 });
@@ -35,3 +36,5 @@ module.exports = router;
 // UserLinks.findById(req.params.id)
 // 	.then((links) => res.json(links))
 // 	.catch((error) => res.status(400).json(`Error ${error}`));
+
+// UserLinks.find({}, { userName: req.params.userName });
