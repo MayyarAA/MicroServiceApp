@@ -9,15 +9,6 @@ function App() {
 			<Router>
 				{/* <Route path='/' component={UserProfileCentralPage} /> */}
 
-				<nav>
-					<ul>
-						<li>
-							<Link to='/UserProfileCentralPage'>
-								Link to UserProfileCentralPage
-							</Link>
-						</li>
-					</ul>
-				</nav>
 				<Route
 					path='/UserProfileCentralPage'
 					component={UserProfileCentralPage}

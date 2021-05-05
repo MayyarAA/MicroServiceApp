@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useState, useCallback } from 'react';
 import { Button, TextField, Grid } from '@material-ui/core';
-
-import { makeStyles } from '@material-ui/core/styles';
+import purple from '@material-ui/core/colors/purple';
+import { makeStyles, fade } from '@material-ui/core/styles';
 import axios from 'axios';
+const url = 'http://localhost:8000/UserLinks/addLink';
 const useStyles = makeStyles((theme) => ({
 	root: {
 		'& > *': {
@@ -10,13 +11,39 @@ const useStyles = makeStyles((theme) => ({
 			width: '25ch',
 		},
 	},
+	buttonTheme: {
+		color: 'white',
+
+		backgroundColor: '#2196f3',
+		'&:hover': {
+			backgroundColor: '#2196f3',
+		},
+	},
+
+	gridTheme: {
+		flexGrow: 1,
+	},
 }));
 function UserProfileAddLinkComponent() {
 	const [linkValue, setLinkValue] = useState();
 	const classes = useStyles();
 
-	const postCall = () => {
+	let postCall = async () => {
 		console.log(linkValue);
+		await axios({
+			method: 'post',
+			url,
+			data: {
+				userName: 'userFourTwo',
+				userLink: `${linkValue}`,
+			},
+		})
+			.then((res) => {
+				console.log(res);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
 	};
 
 	useEffect(() => {
@@ -37,16 +64,18 @@ function UserProfileAddLinkComponent() {
 		</form>
 	);
 	let addLinkButton = (
-		<Button color='secondary' onClick={postCall}>
+		<Button onClick={postCall} className={classes.buttonTheme}>
 			Add Link
 		</Button>
 	);
 
 	let addLinkForm = (
-		<Grid container justify='center'>
-			<Grid item>{addLinkTextField}</Grid>
-			<Grid item>{addLinkButton}</Grid>
-		</Grid>
+		<div className='CenteringElements'>
+			<Grid container justify='center' className={classes.gridTheme}>
+				<Grid item> {addLinkTextField}</Grid>
+				<Grid item>{addLinkButton}</Grid>
+			</Grid>
+		</div>
 	);
 	return <div>{addLinkForm}</div>;
 }

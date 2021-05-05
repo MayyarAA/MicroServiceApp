@@ -14,8 +14,6 @@ export default function UserProfileCentralPage() {
 		// getUserLinks();
 	}, []);
 
-	let userFullPageTwo = <div>Hello from UserProfileCentralPage</div>;
-
 	let userFullPage = UserProfileCardComponent();
 
 	let getUserLinks = async () => {
@@ -39,8 +37,8 @@ export default function UserProfileCentralPage() {
 	return (
 		<div>
 			{/* <div>Hello from UserProfileCentralPage</div> */}
-			{userFullPageTwo}
-			{/* {userFullPage} */}
+
+			{userFullPage}
 			{tempValue}
 			<UserProfileAddLinkComponent />
 		</div>

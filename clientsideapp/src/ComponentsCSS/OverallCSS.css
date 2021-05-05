@@ -1,0 +1,10 @@
+.CenteringElements {
+	align-self: start;
+	align-items: flex-start;
+	text-align: start;
+}
+
+.AlignDivs {
+	/* float: left; */
+	display: inline-block;
+}
