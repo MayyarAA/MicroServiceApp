@@ -3,38 +3,28 @@ const UserLinks = require('../Model/UserLinksModel');
 
 router.route('/addLink').post((req, res) => {
 	const userName = req.body.userName;
-	const userLink = req.body.userLink;
-
+	let userAPIData = [];
+	for (let i = 0; i < req.body.userData.length; i++) {
+		userAPIData.push(req.body.userData[i]);
+	}
+	// userAPIData.push(req.body.userData);
+	console.log(' req.body.userData ' + req.body.userData[0].linkName);
+	console.log(' userAPIData ' + userAPIData[0]);
 	const newUserLink = new UserLinks({
 		userName: userName,
-		link: userLink,
+		userData: userAPIData,
 	});
+	console.log(newUserLink);
 	newUserLink
 		.save()
-		.then(() => res.json(`New link has been added successfully, ${userLink}`))
+		.then(() => res.json(`New link has been added successfully, ${userData}`))
 		.catch((err) => res.status(400).json(`Error ${err}`));
 });
 
 router.route('/getLink/:userName').get((req, res) => {
-	// UserLinks.findById(req.params.id, (result, error) => {
-	// 	if (error) {
-	// 		res.send(`Error no user links found for this userName ${error}`);
-	// 	} else {
-	// 		res.json(result);
-	// 	}
-	// })
-	// 	.then((result) => res.status(200).json(result.toJSON))
-	// 	.catch((error) => res.status(400).json(`Error ${error}`));
-	// UserLinks.findById(req.params.userName)
 	UserLinks.find({ userName: req.params.userName })
-		.then((links) => res.json(links))
+		.then((userData) => res.json(userData))
 		.catch((error) => res.status(400).json(`Error ${error}`));
 });
 
 module.exports = router;
-
-// UserLinks.findById(req.params.id)
-// 	.then((links) => res.json(links))
-// 	.catch((error) => res.status(400).json(`Error ${error}`));
-
-// UserLinks.find({}, { userName: req.params.userName });
