@@ -1,5 +1,6 @@
-const router = require('express').Router();
-const UserLinks = require('../Model/UserLinksModel');
+import express from 'express';
+import UserLinks from '../Model/UserLinksModel.js';
+const router = express.Router();
 
 router.route('/addLink').post((req, res) => {
 	const userName = req.body.userName;
@@ -27,4 +28,5 @@ router.route('/getLink/:userName').get((req, res) => {
 		.catch((error) => res.status(400).json(`Error ${error}`));
 });
 
-module.exports = router;
+// module.exports = router;
+export { router as userLinksRouter };

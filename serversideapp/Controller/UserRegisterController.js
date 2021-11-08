@@ -1,5 +1,7 @@
-const router = require('express').Router();
-let User = require('../Model/UserModel');
+import express from 'express';
+import User from '../Model/UserModel.js';
+const router = express.Router();
+// let User = require('../Model/UserModel');
 
 router.route('/addUser').post((req, res) => {
 	const username = req.body.username;
@@ -18,4 +20,5 @@ router.route('/addUser').post((req, res) => {
 		.catch((err) => res.status(400).json('Error' + err + username));
 });
 
-module.exports = router;
+// module.exports = router;
+export { router as userRegisterRouter };

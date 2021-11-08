@@ -14,4 +14,4 @@ function holder() {
 	secondFunctionDeclared();
 }
 
-module.exports = holder;
+// module.exports = holder;

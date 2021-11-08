@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const userDataLinksSchema = new Schema({
@@ -19,4 +19,4 @@ userLinksSchema.index({ userName: 1 }, { unique: true });
 
 const UserLinks = mongoose.model('UserLinks', userLinksSchema);
 
-module.exports = UserLinks;
+export default UserLinks;

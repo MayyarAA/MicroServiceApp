@@ -1,30 +1,30 @@
-const router = require('express').Router();
-let Books = require('../Model/BookModel');
+import express from 'express';
+import Books from '../Model/BookModel.js';
+const router = express.Router();
+// let Books = require('../Model/BookModel');
 
+router.route('/').get(async (req, res) => {
+	try {
+		const books = await Books.find();
+		res.status(200).json(books);
+	} catch (error) {
+		res.status(404).json({ message: error.message });
+	}
+});
 
-router.route('/').get(async(req, res) => {
-    try{
-      const books = await Books.find();
-      res.status(200).json(books);
-    }catch(error){
-      res.status(404).json({message : error.message});
-    }
+const postBook = async (req, res) => {
+	const { Name, Price, Category, Author } = req.body;
+	const newBook = new Books({ Name, Price, Category, Author });
 
-  });
+	try {
+		await newBook.save();
+		res.status(201).json(newBook);
+	} catch (error) {
+		res.status(409).json({ message: error.message });
+	}
+};
 
-  const postBook = async (req, res) => {
-    const{Name, Price, Category, Author} = req.body;
-    const newBook = new Books({Name, Price, Category, Author})
+router.post('/', postBook);
 
-    try{
-      await newBook.save();
-      res.status(201).json(newBook);
-    }catch(error){
-      res.status(409).json({ message: error.message });
-    }
-
-  }
-
-  router.post('/', postBook)
-
-  module.exports = router;
+// module.exports = router;
+export { router as bookRouter };

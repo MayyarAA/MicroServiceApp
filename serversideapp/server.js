@@ -1,11 +1,20 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const connectDB = require('./config/database');
-const demoNodejs = require('./nodeDemo');
-const cors = require('cors');
+// const express = require('express');
+import express from 'express';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import connectDB from './config/database.js';
+import { exercisesRouter } from './Controller/ExcersieController.js';
+import { bookRouter } from './Controller/BookController.js';
+import { userRegisterRouter } from './Controller/UserRegisterController.js';
+import { userLinksRouter } from './Controller/UserLinksController.js';
+// import { signInWEmail } from './firebase.js';
+// import from '';
+// import from '';
+
 const app = express();
 const apiPort = 8000;
-require('dotenv').config();
+dotenv.config();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use(bodyParser.json());
@@ -18,12 +27,6 @@ app.listen(apiPort, () => {
 });
 
 connectDB();
-demoNodejs();
-
-const exercisesRouter = require('./Controller/ExcersieController');
-const bookRouter = require('./Controller/BookController');
-const userRegisterRouter = require('./Controller/UserRegisterController');
-const userLinksRouter = require('./Controller/UserLinksController');
 
 app.use('/exercises', exercisesRouter);
 app.use('/books', bookRouter);
