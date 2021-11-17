@@ -19,4 +19,4 @@ userLinksSchema.index({ userName: 1 }, { unique: true });
 
 const UserLinks = mongoose.model('UserLinks', userLinksSchema);
 
-export default UserLinks;
+export { UserLinks, userDataLinksSchema };
