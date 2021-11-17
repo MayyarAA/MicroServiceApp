@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import UserProfileCardComponent from '../Components/UserProfileCardComponent';
 import UserProfileAddLinkComponent from '../Components/UserProfileAddLinkComponent';
 import axios from 'axios';
@@ -7,7 +7,7 @@ const url = 'http://localhost:8000/UserLinks/addLink';
 export default function UserProfileCentralPage() {
 	const [tempValue, setTempValue] = useState();
 
-	let temp = <div></div>;
+	// let temp = <div></div>;
 
 	useEffect(() => {
 		console.log('Hellor from useEffect');

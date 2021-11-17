@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Box, Grid } from '@material-ui/core';
+import { Box, Grid } from '@material-ui/core';
 import '../ComponentsCSS/OverallCSS.css';
 const userLinksFromDB = [
 	{ link: 'twitter link', icon: 'twitter icon' },

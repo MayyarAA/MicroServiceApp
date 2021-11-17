@@ -1,9 +1,8 @@
-import React, { useContext, useEffect } from 'react';
-import logo from './logo.svg';
-import { HashRouter as Router, Route, Redirect, Link } from 'react-router-dom';
+import React from 'react';
+
 import './App.css';
 import UserProfileCentralPage from './Pages/UserProfileCentralPage';
-import { Button } from '@material-ui/core';
+
 import UserProfileLinks from './Components/UserProfleLinks.js';
 import { MainPage } from './Components/MainPage.js';
 import { Login } from './Components/Auth/Login.js';

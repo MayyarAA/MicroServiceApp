@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, TextField, Grid } from '@material-ui/core';
-import purple from '@material-ui/core/colors/purple';
+
 import { makeStyles, fade } from '@material-ui/core/styles';
 import axios from 'axios';
 const url = 'http://localhost:8000/UserLinks/addLink';

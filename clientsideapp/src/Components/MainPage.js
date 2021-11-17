@@ -2,9 +2,16 @@ import React, { useContext, useEffect } from 'react';
 import { UserDataContext } from './Context/Context.js';
 function MainPage() {
 	const { userData, setUserData } = useContext(UserDataContext);
-	useEffect(() => {}, []);
+	const { userId } = useContext(UserDataContext);
 
-	return <div>{userData.createdAt}</div>;
+	useEffect(() => {}, [userData]);
+
+	return (
+		<div>
+			{/* <div>{userData.userData[0].link}</div> */}
+			<div>{userId}</div>
+		</div>
+	);
 }
 
 export { MainPage };

@@ -6,7 +6,9 @@ function Login() {
 	const { setUserId } = useContext(UserDataContext);
 	useEffect(() => {
 		setUserId('user1');
+		// console.log()
 	}, []);
+	// });
 
 	return <div>Login Page</div>;
 }
