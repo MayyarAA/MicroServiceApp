@@ -2,6 +2,7 @@ import express from 'express';
 import { UserLinks } from '../Model/UserLinksModel.js';
 import { UserNotFoundErrorMessage } from '../General/ErrorMessages/APIErrorrMessages.js';
 import { CheckIfUserExistsService } from '../Service/AddLinkExistUserService.js';
+import { CheckIfValidDeleteLinkRequest } from '../Service/CheckIfValidRequest.js';
 const router = express.Router();
 
 router.route('/addLink').post((req, res) => {
@@ -10,7 +11,7 @@ router.route('/addLink').post((req, res) => {
 	for (let i = 0; i < req.body.userData.length; i++) {
 		userAPIData.push(req.body.userData[i]);
 	}
-	// userAPIData.push(req.body.userData);
+
 	console.log(' req.body.userData ' + req.body.userData[0].linkName);
 	console.log(' userAPIData ' + userAPIData[0]);
 	const newUserLink = new UserLinks({
@@ -48,6 +49,36 @@ router.route('/addLinkExistingUser').put((req, res) => {
 		);
 	};
 	addNewLinkToExsitingUserInnerAction();
+});
+
+router.route('/deleteLinkExistingUser').patch((req, res) => {
+	const userNameFromReq = req.body.userName;
+	const userIdFromReq = req.body.userId;
+	const linkIdToRemove = req.body.linkIdToRemove;
+	if (!CheckIfValidDeleteLinkRequest(userNameFromReq, userIdFromReq, linkIdToRemove)) {
+		res.status(400).send('Bad Request');
+		return;
+	}
+
+	UserLinks.updateOne(
+		{ _id: userIdFromReq },
+		{ $pull: { userData: { _id: linkIdToRemove } } },
+		{ safe: true, multi: true },
+		(error, result) => {
+			if (error) {
+				res.status(404).send(error);
+				return;
+			}
+			res
+				.status(201)
+				.json(
+					`The link ${linkIdToRemove} was removed for the user ${userNameFromReq} ` + result
+				);
+			return;
+		}
+	);
+	// .then((resultFromResponse) => res.json(resultFromResponse))
+	// .catch((error) => res.status(400).json(`Error ${error}`));
 });
 
 router.route('/getLink/:userName').get((req, res) => {
