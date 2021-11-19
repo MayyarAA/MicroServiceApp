@@ -8,9 +8,7 @@ import { exercisesRouter } from './Controller/ExcersieController.js';
 import { bookRouter } from './Controller/BookController.js';
 import { userRegisterRouter } from './Controller/UserRegisterController.js';
 import { userLinksRouter } from './Controller/UserLinksController.js';
-// import { signInWEmail } from './firebase.js';
-// import from '';
-// import from '';
+import { userProfileRouter } from './Controller/UserProfleController/UserProfileUploadController.js';
 
 const app = express();
 const apiPort = 8000;
@@ -32,5 +30,6 @@ app.use('/exercises', exercisesRouter);
 app.use('/books', bookRouter);
 app.use('/User/', userRegisterRouter);
 app.use('/UserLinks/', userLinksRouter);
+app.use('/profile/', userProfileRouter);
 
 // app.listen(apiPort, () => console.log(`Server running on port ${apiPort}`));
