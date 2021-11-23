@@ -54,14 +54,14 @@ function ProfilePageUserHeader() {
 function ProfileUserNameComponent(props) {
 	return (
 		<div>
-			<h1>{props.userNanme}</h1>
+			<h1>@{props.userNanme}</h1>
 		</div>
 	);
 }
 function ProfilePageUserHeaderTitleComponent(props) {
 	return (
 		<div>
-			<h2>{props.title}</h2>
+			<h2> {props.title}</h2>
 		</div>
 	);
 }
@@ -69,7 +69,7 @@ function ProfilePageUserHeaderTitleComponent(props) {
 function ProfilePageUserHeaderImageComponent(props) {
 	return (
 		<div>
-			<img src={props.profileImage} />
+			<img src={props.profileImage} class='ProfileImg' />
 		</div>
 	);
 }

@@ -10,7 +10,6 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import '../ComponentsCSS/OverallCSS.css';
 function UserProfileLinks() {
-	// let userId = 'user1';
 	const { userId } = useContext(UserDataContext);
 
 	const { userData, setUserData } = useContext(UserDataContext);
@@ -62,7 +61,8 @@ function UserProfileLinks() {
 
 	return (
 		<div>
-			<div class='center'>
+			<div class='inner'>
+				{/* <div> */}
 				<UserProfileLinksListComponent data='123' listLinkItemsLocal={linksList} />
 			</div>
 		</div>

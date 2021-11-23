@@ -11,7 +11,6 @@ function App() {
 			<div className='App'>
 				<Login />
 				<ProflePage />
-				{/* <MainPage /> */}
 			</div>
 		</UserDataContextProvider>
 	);

@@ -15,3 +15,12 @@
 	align-items: center;
 	height: 100vh;
 }
+
+.inner {
+	width: 50%;
+	margin: 0 auto;
+}
+
+.ProfileImg {
+	border-radius: 50%;
+}
