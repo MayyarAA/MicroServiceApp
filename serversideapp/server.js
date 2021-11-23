@@ -9,6 +9,7 @@ import { bookRouter } from './Controller/BookController.js';
 import { userRegisterRouter } from './Controller/UserRegisterController.js';
 import { userLinksRouter } from './Controller/UserLinksController.js';
 import { userProfileRouter } from './Controller/UserProfleController/UserProfileUploadController.js';
+import { getUserProfileRouter } from './Controller/UserProfleController/UserProfileGetController.js';
 
 const app = express();
 const apiPort = 8000;
@@ -31,5 +32,6 @@ app.use('/books', bookRouter);
 app.use('/User/', userRegisterRouter);
 app.use('/UserLinks/', userLinksRouter);
 app.use('/profile/', userProfileRouter);
+app.use('/getprofile/', getUserProfileRouter);
 
 // app.listen(apiPort, () => console.log(`Server running on port ${apiPort}`));

@@ -19,11 +19,11 @@ const router = express.Router();
 // 		cb(null, file.fieldname + '-' + Date.now());
 // 	},
 // });
+
 const storage = multer.memoryStorage();
 let upload = multer({ storage: storage });
-//upload.single('userImage'),
+
 router.route('/addUserProfile').post(upload.single('userPhoto'), (req, res) => {
-	// console.log(req.body.userName);
 	console.log(req.body);
 	// console.log(req.file);
 	const userName = req.body.userName;
