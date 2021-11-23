@@ -12,7 +12,7 @@ import '../ComponentsCSS/OverallCSS.css';
 function UserProfileLinks() {
 	// let userId = 'user1';
 	const { userId } = useContext(UserDataContext);
-	let listLinkItems;
+
 	const { userData, setUserData } = useContext(UserDataContext);
 	const [linksList, setLinksList] = useState([]);
 	useEffect(() => {
@@ -26,7 +26,7 @@ function UserProfileLinks() {
 		printFcn();
 	}, [userData]);
 	useEffect(() => {}, [linksList]);
-	// });
+
 	let apiCallUserLinks = useCallback(async () => {
 		let url = `http://localhost:8000/UserLinks/getLink/${userId}`;
 		await axios({
@@ -44,7 +44,6 @@ function UserProfileLinks() {
 
 	let printFcn = () => {
 		if (Object.keys(userData).length !== 0) {
-			let numOfLinks = userData.userData.length;
 			let linksListLocal = [];
 			for (let i = 0; i < userData.userData.length; i++) {
 				let localInstance = userData.userData[i];
@@ -58,25 +57,13 @@ function UserProfileLinks() {
 				console.log('liistObj ' + liistObj + ' ' + i);
 			}
 			setLinksList(linksListLocal);
-			console.log(userData);
 		}
-		console.log(' here outside of if');
 	};
-	// printFcn();
-	if (Object.keys(linksList).length !== 0) {
-		// listLinkItems = linksListLocal[0]._id;
-		console.log(linksList);
-		listLinkItems = linksList.map((link) => <li>{link.linkName}</li>);
-	}
+
 	return (
 		<div>
-			<div>here from UserProfileLinks </div>
-			{/* <ul>{listLinkItems}</ul> */}
 			<div class='center'>
-				<UserProfileLinksListComponent
-					data='123'
-					listLinkItemsLocal={linksList}
-				/>
+				<UserProfileLinksListComponent data='123' listLinkItemsLocal={linksList} />
 			</div>
 		</div>
 	);
@@ -97,10 +84,7 @@ function UserProfileLinksListComponent(props) {
 	if (localLinks !== undefined || localLinks !== null) {
 		console.log(resultUIComponent);
 		resultUIComponent = (
-			<List
-
-			// sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
-			>
+			<List>
 				{localLinks.map((linkObj) => {
 					const labelId = `checkbox-list-secondary-label-${linkObj.id}`;
 					return (

@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState, useCallback } from 'react';
-import axios from 'axios';
+import React, { useContext, useEffect } from 'react';
+
 import { UserDataContext } from '../Context/Context.js';
 
 function Login() {
@@ -7,7 +7,7 @@ function Login() {
 	useEffect(() => {
 		setUserId('user1');
 		// console.log()
-	}, []);
+	}, [setUserId]);
 	// });
 
 	return <div>Login Page</div>;
