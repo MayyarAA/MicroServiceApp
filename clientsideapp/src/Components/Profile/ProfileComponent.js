@@ -1,6 +1,10 @@
 import React, { useContext, useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import { UserDataContext } from '../Context/Context.js';
+import dotenv from 'dotenv';
+
+dotenv.config();
+const baseURL = process.env.REACT_APP_LOCALHOSTURL;
 
 function ProfilePageUserHeader() {
 	const { userId } = useContext(UserDataContext);
@@ -14,7 +18,7 @@ function ProfilePageUserHeader() {
 		renderUserProfileData();
 	}, [userProfileData]);
 	let getUserProfileAPICall = useCallback(async () => {
-		let url = `http://localhost:8000/getprofile/getUserProfile/${userId}`;
+		let url = `${baseURL}/getprofile/getUserProfile/${userId}`;
 		await axios({
 			method: 'get',
 			url,

@@ -9,6 +9,11 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import '../ComponentsCSS/OverallCSS.css';
+import dotenv from 'dotenv';
+
+dotenv.config();
+const baseURL = process.env.REACT_APP_LOCALHOSTURL;
+
 function UserProfileLinks() {
 	const { userId } = useContext(UserDataContext);
 
@@ -27,7 +32,7 @@ function UserProfileLinks() {
 	useEffect(() => {}, [linksList]);
 
 	let apiCallUserLinks = useCallback(async () => {
-		let url = `http://localhost:8000/UserLinks/getLink/${userId}`;
+		let url = `${baseURL}/UserLinks/getLink/${userId}`;
 		await axios({
 			method: 'get',
 			url,

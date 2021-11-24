@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Button, TextField, Grid } from '@material-ui/core';
-
 import { makeStyles, fade } from '@material-ui/core/styles';
 import axios from 'axios';
-const url = 'http://localhost:8000/UserLinks/addLink';
+import dotenv from 'dotenv';
+
+dotenv.config();
+const baseURL = process.env.REACT_APP_LOCALHOSTURL;
+
+const url = `${baseURL}/UserLinks/addLink`;
 const useStyles = makeStyles((theme) => ({
 	root: {
 		'& > *': {
