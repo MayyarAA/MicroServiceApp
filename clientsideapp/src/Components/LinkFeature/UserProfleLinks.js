@@ -1,16 +1,16 @@
 import React, { useContext, useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
-import { UserDataContext } from './Context/Context.js';
-import { ImageMap } from './Objects/ImageMap.js';
+import { UserDataContext } from '../Context/Context.js';
+import { ImageMap } from '../Objects/ImageMap.js';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
-import '../ComponentsCSS/OverallCSS.css';
+import '../../ComponentsCSS/OverallCSS.css';
 import dotenv from 'dotenv';
-
+import { UserLinkObj } from '../Objects/UserLinkObj';
 dotenv.config();
 const baseURL = process.env.REACT_APP_LOCALHOSTURL;
 
@@ -47,7 +47,7 @@ function UserProfileLinks() {
 	});
 
 	let printFcn = () => {
-		if (Object.keys(userData).length !== 0) {
+		if (Object.keys(userData).length !== 0 && userData.userData.length < 500) {
 			let linksListLocal = [];
 			for (let i = 0; i < userData.userData.length; i++) {
 				let localInstance = userData.userData[i];
@@ -58,7 +58,6 @@ function UserProfileLinks() {
 					localInstance.linkImage
 				);
 				linksListLocal.push(liistObj);
-				console.log('liistObj ' + liistObj + ' ' + i);
 			}
 			setLinksList(linksListLocal);
 		}
@@ -66,30 +65,27 @@ function UserProfileLinks() {
 
 	return (
 		<div>
-			<div class='inner'>
-				{/* <div> */}
-				<UserProfileLinksListComponent data='123' listLinkItemsLocal={linksList} />
+			<div style={{ display: 'flex', justifyContent: 'center' }}>
+				<UserProfileLinksListComponent listLinkItemsLocal={linksList} />
 			</div>
 		</div>
 	);
 }
 
 function UserProfileLinksListComponent(props) {
+	let resultUIComponent;
 	const [localLinks, setLocalLinks] = useState([]);
 	const openNewTap = (link) => {
-		console.log(link);
 		const newWindow = window.open(link, '_blank', 'noopener,noreferrer');
 		if (newWindow) newWindow.opener = null;
 	};
-	let resultUIComponent;
 	useEffect(() => {
 		setLocalLinks(props.listLinkItemsLocal);
 	}, [props.listLinkItemsLocal]);
 
 	if (localLinks !== undefined || localLinks !== null) {
-		console.log(resultUIComponent);
 		resultUIComponent = (
-			<List>
+			<List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
 				{localLinks.map((linkObj) => {
 					const labelId = `checkbox-list-secondary-label-${linkObj.id}`;
 					return (
@@ -114,13 +110,6 @@ function UserProfileLinksListComponent(props) {
 		);
 	}
 	return <div>{resultUIComponent}</div>;
-}
-
-function UserLinkObj(id, link, linkName, linkImage) {
-	this.id = id;
-	this.link = link;
-	this.linkName = linkName;
-	this.linkImage = linkImage;
 }
 
 export default UserProfileLinks;

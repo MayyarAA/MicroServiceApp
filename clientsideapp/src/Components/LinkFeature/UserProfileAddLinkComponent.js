@@ -50,9 +50,7 @@ function UserProfileAddLinkComponent() {
 			});
 	};
 
-	useEffect(() => {
-		// console.log(linkValue);
-	}, [linkValue]);
+	useEffect(() => {}, [linkValue]);
 
 	let addLinkTextField = (
 		<form className={classes.root}>

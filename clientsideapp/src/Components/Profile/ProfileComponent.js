@@ -17,6 +17,7 @@ function ProfilePageUserHeader() {
 	useEffect(() => {
 		renderUserProfileData();
 	}, [userProfileData]);
+
 	let getUserProfileAPICall = useCallback(async () => {
 		let url = `${baseURL}/getprofile/getUserProfile/${userId}`;
 		await axios({
