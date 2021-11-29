@@ -1,5 +1,5 @@
 import express from 'express';
-import User from '../Model/UserModel.js';
+import User from '../../Model/UserModel.js';
 const router = express.Router();
 // let User = require('../Model/UserModel');
 
@@ -7,11 +7,13 @@ router.route('/addUser').post((req, res) => {
 	const username = req.body.username;
 	const userEmail = req.body.userEmail;
 	const description = req.body.description;
+	const passwordUnHashed = req.body.password;
 	console.log(username);
 	const newUser = new User({
 		username: username,
 		userEmail: userEmail,
 		description: description,
+		password: passwordUnHashed,
 	});
 	console.log(newUser);
 	newUser

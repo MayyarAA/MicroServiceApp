@@ -1,10 +1,9 @@
-// const mongoose = require('mongoose');
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-// const dotenv = require('dotenv');
-dotenv.config();
 
+dotenv.config();
 const url2 = process.env.ATLAS_URI;
+
 const connectionParams = {
 	useNewUrlParser: true,
 	useCreateIndex: true,
