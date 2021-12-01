@@ -4,6 +4,7 @@ const UserDataContext = createContext();
 const UserDataContextProvider = (props) => {
 	const [userData, setUserData] = React.useState({});
 	const [userId, setUserId] = React.useState('');
+	const [linksList, setLinksList] = React.useState([]);
 	return (
 		<UserDataContext.Provider
 			value={{
@@ -11,6 +12,8 @@ const UserDataContextProvider = (props) => {
 				setUserData,
 				userId,
 				setUserId,
+				linksList,
+				setLinksList,
 			}}>
 			{props.children}
 		</UserDataContext.Provider>

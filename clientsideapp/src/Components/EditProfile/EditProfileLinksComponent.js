@@ -11,30 +11,19 @@ import '../../ComponentsCSS/OverallCSS.css';
 import dotenv from 'dotenv';
 import { BuildLinksFeatureSetContext } from '../../Services/LinksService/BuildLinksFeature.js';
 import { OverAllJSCSS } from '../../ComponentsCSS/OverallJSCSS.js';
-dotenv.config();
-const baseURL = process.env.REACT_APP_LOCALHOSTURL;
-
-function UserProfileLinks() {
-	const { userId } = useContext(UserDataContext);
-
-	BuildLinksFeatureSetContext();
-	useEffect(() => {
-		if (userId !== undefined || userId !== null || userId.length !== 0) {
-			console.log('here ' + userId);
-		}
-	}, [userId]);
-
+function EditProfileLinksComponent() {
 	return (
-		<div>
-			<div style={OverAllJSCSS.makeComponentCentered}>
-				<UserProfileLinksListComponent />
-			</div>
+		<div style={OverAllJSCSS.makeComponentCentered}>
+			<EditProfileLinksComponentRenderHelper />
 		</div>
 	);
 }
 
-function UserProfileLinksListComponent() {
+function EditProfileLinksComponentRenderHelper() {
 	const { linksList } = useContext(UserDataContext);
+	if (linksList === null || linksList === undefined) {
+		BuildLinksFeatureSetContext();
+	}
 	let resultUIComponent;
 	const [localLinks, setLocalLinks] = useState([]);
 	const openNewTap = (link) => {
@@ -74,4 +63,4 @@ function UserProfileLinksListComponent() {
 	return <div>{resultUIComponent}</div>;
 }
 
-export default UserProfileLinks;
+export { EditProfileLinksComponent };
