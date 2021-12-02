@@ -1,29 +1,28 @@
-function CheckIfValidDeleteLinkRequest(userNameFromReq, userIdFromReq, linkIdToRemove) {
+function CheckIfValidDeleteLinkRequest(userNameFromReq, userIdFromReq, listOfLinksIdToRemove) {
 	if (
-		userNameFromReq == null ||
-		userNameFromReq == undefined ||
-		userNameFromReq == ' ' ||
-		userNameFromReq == ''
+		userNameFromReq === null ||
+		userNameFromReq === undefined ||
+		userNameFromReq === ' ' ||
+		userNameFromReq === ''
 	) {
 		console.log('userNameFromReq ' + userNameFromReq);
 		return false;
 	}
 	if (
-		userIdFromReq == null ||
-		userIdFromReq == undefined ||
-		userIdFromReq == ' ' ||
-		userIdFromReq == ''
+		userIdFromReq === null ||
+		userIdFromReq === undefined ||
+		userIdFromReq === ' ' ||
+		userIdFromReq === ''
 	) {
 		console.log('userIdFromReq ' + userIdFromReq);
 		return false;
 	}
 	if (
-		linkIdToRemove == null ||
-		linkIdToRemove == undefined ||
-		linkIdToRemove == ' ' ||
-		linkIdToRemove == ''
+		listOfLinksIdToRemove === null ||
+		listOfLinksIdToRemove === undefined ||
+		listOfLinksIdToRemove.length === 0
 	) {
-		console.log('linkIdToRemove ' + linkIdToRemove);
+		console.log('listOfLinksIdToRemove ' + listOfLinksIdToRemove);
 		return false;
 	}
 

@@ -54,31 +54,52 @@ router.route('/addLinkExistingUser').put((req, res) => {
 router.route('/deleteLinkExistingUser').patch((req, res) => {
 	const userNameFromReq = req.body.userName;
 	const userIdFromReq = req.body.userId;
-	const linkIdToRemove = req.body.linkIdToRemove;
-	if (!CheckIfValidDeleteLinkRequest(userNameFromReq, userIdFromReq, linkIdToRemove)) {
+	// const linkIdToRemove = req.body.linkIdToRemove;
+	const listOfLinksIdToRemove = req.body.listOfLinksIdToRemove;
+	if (!CheckIfValidDeleteLinkRequest(userNameFromReq, userIdFromReq, listOfLinksIdToRemove)) {
 		res.status(400).send('Bad Request');
 		return;
 	}
-
-	UserLinks.updateOne(
-		{ _id: userIdFromReq },
-		{ $pull: { userData: { _id: linkIdToRemove } } },
-		{ safe: true, multi: true },
-		(error, result) => {
-			if (error) {
-				res.status(404).send(error);
-				return;
+	console.log(listOfLinksIdToRemove.length);
+	for (let i = 0; i < listOfLinksIdToRemove.length; i++) {
+		const linkIdToRemove = listOfLinksIdToRemove[i];
+		console.log('ran ' + i);
+		// try {
+		UserLinks.updateOne(
+			{ _id: userIdFromReq },
+			{ $pull: { userData: { _id: linkIdToRemove } } },
+			{ safe: true, multi: true },
+			(error, result) => {
+				if (error !== null) {
+					res.status(404).send(error);
+					return;
+				}
 			}
-			res
-				.status(201)
-				.json(
-					`The link ${linkIdToRemove} was removed for the user ${userNameFromReq} ` + result
-				);
-			return;
-		}
-	);
-	// .then((resultFromResponse) => res.json(resultFromResponse))
-	// .catch((error) => res.status(400).json(`Error ${error}`));
+		);
+		// } catch (err) {
+		// 	res.status(404).send(error);
+		// 	return;
+		// }
+		// UserLinks.updateOne(
+		// 	{ _id: userIdFromReq },
+		// 	{ $pull: { userData: { _id: linkIdToRemove } } },
+		// 	{ safe: true, multi: true },
+		// 	(error, result) => {
+		// 		if (error) {
+		// 			res.status(404).send(error);
+		// 			return;
+		// 		}
+		// 		res
+		// 			.status(201)
+		// 			.json(
+		// 				`The link ${linkIdToRemove} was removed for the user ${userNameFromReq} ` + result
+		// 			);
+		// 		return;
+		// 	}
+		// );
+	}
+	res.status(201).json(`The links were removed for the user ${userNameFromReq} `);
+	return;
 });
 
 router.route('/getLink/:userName').get((req, res) => {
