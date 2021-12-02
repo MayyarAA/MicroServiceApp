@@ -9,11 +9,13 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import '../../ComponentsCSS/OverallCSS.css';
 import dotenv from 'dotenv';
+import IconButton from '@mui/material/IconButton';
 import { BuildLinksFeatureSetContext } from '../../Services/LinksService/BuildLinksFeature.js';
-import { OverAllJSCSS } from '../../ComponentsCSS/OverallJSCSS.js';
+import { OverallJSCSS } from '../../ComponentsCSS/OverallJSCSS.js';
+import DeleteIcon from '@mui/icons-material/Delete';
 function EditProfileLinksComponent() {
 	return (
-		<div style={OverAllJSCSS.makeComponentCentered}>
+		<div style={OverallJSCSS.makeComponentCentered}>
 			<EditProfileLinksComponentRenderHelper />
 		</div>
 	);
@@ -26,6 +28,7 @@ function EditProfileLinksComponentRenderHelper() {
 	}
 	let resultUIComponent;
 	const [localLinks, setLocalLinks] = useState([]);
+	const { deleteLinksList, setDeleteLinksList } = useContext(UserDataContext);
 	const openNewTap = (link) => {
 		const newWindow = window.open(link, '_blank', 'noopener,noreferrer');
 		if (newWindow) newWindow.opener = null;
@@ -34,6 +37,15 @@ function EditProfileLinksComponentRenderHelper() {
 		setLocalLinks(linksList);
 	}, [linksList]);
 
+	const deleteLink = (linkObj) => {
+		console.log(
+			'in deletelink caller ' +
+				JSON.stringify(linkObj) +
+				' deleteLinksList.length ' +
+				deleteLinksList.length
+		);
+		setDeleteLinksList(deleteLinksList.concat(linkObj));
+	};
 	if (localLinks !== undefined || localLinks !== null) {
 		resultUIComponent = (
 			<List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
@@ -52,8 +64,16 @@ function EditProfileLinksComponentRenderHelper() {
 										openNewTap(linkObj.link);
 									}}
 								/>
-								{/* <ListItemText id={labelId} primary={` ${linkObj.id}`} /> */}
 							</ListItemButton>
+
+							<IconButton
+								edge='end'
+								aria-label='delete'
+								onClick={() => {
+									deleteLink(linkObj);
+								}}>
+								<DeleteIcon />
+							</IconButton>
 						</ListItem>
 					);
 				})}

@@ -1,5 +1,6 @@
-const OverAllJSCSS = {
+const OverallJSCSS = {
 	makeComponentCentered: { display: 'flex', justifyContent: 'center' },
+	makeMUIGridCenteredElements: {},
 };
 
-export { OverAllJSCSS };
+export { OverallJSCSS };

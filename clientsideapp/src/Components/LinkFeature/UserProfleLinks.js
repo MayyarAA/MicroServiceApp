@@ -10,7 +10,7 @@ import Avatar from '@mui/material/Avatar';
 import '../../ComponentsCSS/OverallCSS.css';
 import dotenv from 'dotenv';
 import { BuildLinksFeatureSetContext } from '../../Services/LinksService/BuildLinksFeature.js';
-import { OverAllJSCSS } from '../../ComponentsCSS/OverallJSCSS.js';
+import { OverallJSCSS } from '../../ComponentsCSS/OverallJSCSS.js';
 dotenv.config();
 const baseURL = process.env.REACT_APP_LOCALHOSTURL;
 
@@ -26,7 +26,7 @@ function UserProfileLinks() {
 
 	return (
 		<div>
-			<div style={OverAllJSCSS.makeComponentCentered}>
+			<div style={OverallJSCSS.makeComponentCentered}>
 				<UserProfileLinksListComponent />
 			</div>
 		</div>

@@ -1,6 +1,10 @@
 import { EditProfileComponent } from '../Components/EditProfile/EditProfileComponent.js';
 import { ProfilePageUserHeader } from '../Components/Profile/ProfileComponent.js';
 import { EditProfileLinksComponent } from '../Components/EditProfile/EditProfileLinksComponent.js';
+import { EditProfileSubmitButton } from '../Components/EditProfile/EditProfileSubmitButton.js';
+import { EditProfileCancelButton } from '../Components/EditProfile/EditProfileCancelButton.js';
+import { OverallJSCSS } from '../ComponentsCSS/OverallJSCSS.js';
+import Grid from '@mui/material/Grid';
 function EditProfilePage() {
 	return (
 		<div>
@@ -8,6 +12,15 @@ function EditProfilePage() {
 			<ProfilePageUserHeader />
 			<EditProfileComponent />
 			<EditProfileLinksComponent />
+
+			<Grid container direction='row' justifyContent='center' alignItems='center'>
+				<Grid item>
+					<EditProfileSubmitButton />
+				</Grid>
+				<Grid item>
+					<EditProfileCancelButton />
+				</Grid>
+			</Grid>
 		</div>
 	);
 }
