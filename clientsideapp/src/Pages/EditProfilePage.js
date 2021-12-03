@@ -15,8 +15,12 @@ function EditProfilePage() {
 			<EditProfileLinksComponent />
 			<AddNewUserLinkComponent />
 			<Grid container direction='row' justifyContent='center' alignItems='center'>
-				<Grid item>{/* <EditProfileSubmitButton /> */}</Grid>
-				<Grid item>{/* <EditProfileCancelButton /> */}</Grid>
+				<Grid item>
+					<EditProfileSubmitButton />
+				</Grid>
+				<Grid item>
+					<EditProfileCancelButton />
+				</Grid>
 			</Grid>
 		</div>
 	);
