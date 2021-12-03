@@ -25,12 +25,21 @@ router.route('/addLink').post((req, res) => {
 		.catch((err) => res.status(400).json(`Error ${err}`));
 });
 
-router.route('/addLinkExistingUser').put((req, res) => {
+router.route('/addLinkExistingUser').patch((req, res) => {
 	const userNameFromReq = req.body.userName;
 	const userDataLinksSchemaLocal = req.body.userDataObject;
+	console.log(userNameFromReq);
+	console.log(JSON.stringify(userDataLinksSchemaLocal));
 	const userNameFilter = { userName: userNameFromReq };
 	const userNotFoundError = UserNotFoundErrorMessage(userNameFromReq);
-
+	if (
+		userNameFromReq === null ||
+		userDataLinksSchemaLocal === null ||
+		userDataLinksSchemaLocal.length === 0
+	) {
+		res.status(404).send('userNotFoundError');
+		return;
+	}
 	const addNewLinkToExsitingUserInnerAction = () => {
 		UserLinks.findOneAndUpdate(
 			userNameFilter,
@@ -54,7 +63,7 @@ router.route('/addLinkExistingUser').put((req, res) => {
 router.route('/deleteLinkExistingUser').patch((req, res) => {
 	const userNameFromReq = req.body.userName;
 	const userIdFromReq = req.body.userId;
-	// const linkIdToRemove = req.body.linkIdToRemove;
+
 	const listOfLinksIdToRemove = req.body.listOfLinksIdToRemove;
 	if (!CheckIfValidDeleteLinkRequest(userNameFromReq, userIdFromReq, listOfLinksIdToRemove)) {
 		res.status(400).send('Bad Request');
@@ -76,27 +85,6 @@ router.route('/deleteLinkExistingUser').patch((req, res) => {
 				}
 			}
 		);
-		// } catch (err) {
-		// 	res.status(404).send(error);
-		// 	return;
-		// }
-		// UserLinks.updateOne(
-		// 	{ _id: userIdFromReq },
-		// 	{ $pull: { userData: { _id: linkIdToRemove } } },
-		// 	{ safe: true, multi: true },
-		// 	(error, result) => {
-		// 		if (error) {
-		// 			res.status(404).send(error);
-		// 			return;
-		// 		}
-		// 		res
-		// 			.status(201)
-		// 			.json(
-		// 				`The link ${linkIdToRemove} was removed for the user ${userNameFromReq} ` + result
-		// 			);
-		// 		return;
-		// 	}
-		// );
 	}
 	res.status(201).json(`The links were removed for the user ${userNameFromReq} `);
 	return;
