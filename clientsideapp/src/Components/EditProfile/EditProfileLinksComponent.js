@@ -9,6 +9,7 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import '../../ComponentsCSS/OverallCSS.css';
 import dotenv from 'dotenv';
+import { makeStyles } from '@mui/styles';
 import IconButton from '@mui/material/IconButton';
 import { BuildLinksFeatureSetContext } from '../../Services/LinksService/BuildLinksFeature.js';
 import { OverallJSCSS } from '../../ComponentsCSS/OverallJSCSS.js';
@@ -21,8 +22,23 @@ function EditProfileLinksComponent() {
 	);
 }
 
+const useStyles = makeStyles({
+	root: {
+		'& .Mui-selected': {
+			backgroundColor: 'pink',
+			color: 'red',
+			fontWeight: 'bold',
+		},
+		'& .Mui-selected:hover': {
+			backgroundColor: 'tomato',
+		},
+	},
+});
+
 function EditProfileLinksComponentRenderHelper() {
+	const styles = useStyles();
 	const { linksList } = useContext(UserDataContext);
+	const [linkComponentColor, setLinkComponentColor] = useState('#fafafa');
 	if (linksList === null || linksList === undefined) {
 		BuildLinksFeatureSetContext();
 	}
@@ -36,7 +52,7 @@ function EditProfileLinksComponentRenderHelper() {
 	useEffect(() => {
 		setLocalLinks(linksList);
 	}, [linksList]);
-
+	useEffect(() => {}, [linkComponentColor]);
 	const deleteLink = (linkObj) => {
 		console.log(
 			'in deletelink caller ' +
@@ -44,6 +60,7 @@ function EditProfileLinksComponentRenderHelper() {
 				' deleteLinksList.length ' +
 				deleteLinksList.length
 		);
+		setLinkComponentColor('#ffab91');
 		setDeleteLinksList(deleteLinksList.concat(linkObj));
 	};
 	if (localLinks !== undefined || localLinks !== null) {
@@ -83,4 +100,4 @@ function EditProfileLinksComponentRenderHelper() {
 	return <div>{resultUIComponent}</div>;
 }
 
-export { EditProfileLinksComponent };
+export { EditProfileLinksComponent, makeStyles };

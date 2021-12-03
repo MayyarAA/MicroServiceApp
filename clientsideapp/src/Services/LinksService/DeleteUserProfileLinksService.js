@@ -22,12 +22,6 @@ function DeleteUserProfileLinksService(userObject, deleteLinksList) {
 	for (let i = 0; i < deleteLinksList.length; i++) {
 		console.log(deleteLinksList[i]);
 		deleteLinksAPIObject.listOfLinksIdToRemove.push(deleteLinksList[i].id);
-		// let deleteLinkObj = new DeleteLinkObject(
-		// 	userObject.userId,
-		// 	userObject.userName,
-		// 	deleteLinksList[i].id
-		// );
-		// console.log(deleteLinkObj);
 	}
 	console.log(JSON.stringify(deleteLinksAPIObject));
 	deletUserProfileLinksAPI(deleteLinksAPIObject);
