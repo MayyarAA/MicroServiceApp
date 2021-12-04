@@ -12,13 +12,13 @@ router.route('/addLink').post((req, res) => {
 		userAPIData.push(req.body.userData[i]);
 	}
 
-	console.log(' req.body.userData ' + req.body.userData[0].linkName);
-	console.log(' userAPIData ' + userAPIData[0]);
+	// console.log(' req.body.userData ' + req.body.userData[0].linkName);
+	// console.log(' userAPIData ' + userAPIData[0]);
 	const newUserLink = new UserLinks({
 		userName: userName,
 		userData: userAPIData,
 	});
-	console.log(newUserLink);
+	// console.log(newUserLink);
 	newUserLink
 		.save()
 		.then(() => res.json(`New link has been added successfully, ${userData}`))
@@ -28,8 +28,8 @@ router.route('/addLink').post((req, res) => {
 router.route('/addLinkExistingUser').patch((req, res) => {
 	const userNameFromReq = req.body.userName;
 	const userDataLinksSchemaLocal = req.body.userDataObject;
-	console.log(userNameFromReq);
-	console.log(JSON.stringify(userDataLinksSchemaLocal));
+	// console.log(userNameFromReq);
+	// console.log(JSON.stringify(userDataLinksSchemaLocal));
 	const userNameFilter = { userName: userNameFromReq };
 	const userNotFoundError = UserNotFoundErrorMessage(userNameFromReq);
 	if (
@@ -69,7 +69,10 @@ router.route('/deleteLinkExistingUser').patch((req, res) => {
 		res.status(400).send('Bad Request');
 		return;
 	}
-	console.log(listOfLinksIdToRemove.length);
+	// console.log(listOfLinksIdToRemove.length);
+	console.log(userNameFromReq);
+	console.log(userIdFromReq);
+	console.log(JSON.stringify(listOfLinksIdToRemove));
 	for (let i = 0; i < listOfLinksIdToRemove.length; i++) {
 		const linkIdToRemove = listOfLinksIdToRemove[i];
 		console.log('ran ' + i);
@@ -88,6 +91,37 @@ router.route('/deleteLinkExistingUser').patch((req, res) => {
 	}
 	res.status(201).json(`The links were removed for the user ${userNameFromReq} `);
 	return;
+});
+
+router.route('/updateLinkValue').patch((req, res) => {
+	const userNameFromReq = req.body.userName;
+	const userIdFromReq = req.body.userId;
+	const linkIdFromReq = req.body.linkId;
+	const linkObj = req.body.linkObj;
+	const userNameFilter = { userName: userNameFromReq };
+	console.log(JSON.stringify(linkObj));
+	console.log('userNameFromReq ' + userNameFromReq + ' linkIdFromReq ' + linkIdFromReq);
+	UserLinks.findOneAndUpdate(
+		{ userName: userNameFromReq, userData: { $elemMatch: { _id: linkIdFromReq } } },
+		{
+			$set: {
+				'userData.$.link': linkObj.link,
+				'userData.$.linkName': linkObj.linkName,
+				'userData.$.linkImage': linkObj.linkImage,
+			},
+		},
+		{ new: true },
+
+		(error, responseMongoo) => {
+			console.log('----- error ' + error + ' -----responseMongoo ' + responseMongoo);
+			if (error === 'MongoError' || error !== null || responseMongoo === null) {
+				res.status(404).json(error);
+				return;
+			}
+			res.status(201).json(responseMongoo);
+			return;
+		}
+	);
 });
 
 router.route('/getLink/:userName').get((req, res) => {

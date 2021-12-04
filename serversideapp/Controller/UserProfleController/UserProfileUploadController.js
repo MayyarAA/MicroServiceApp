@@ -24,7 +24,7 @@ const storage = multer.memoryStorage();
 let upload = multer({ storage: storage });
 
 router.route('/addUserProfile').post(upload.single('userPhoto'), (req, res) => {
-	console.log(req.body);
+	// console.log(req.body);
 	// console.log(req.file);
 	const userName = req.body.userName;
 	const userProfileTitle = req.body.userTitle;

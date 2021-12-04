@@ -15,25 +15,11 @@ async function CheckIfUserExistsService(userId) {
 	})
 		.then(() => {
 			result = true;
-			console.log(
-				'in .then of CheckIfUserExistsService' +
-					userId +
-					'result is set to ' +
-					result
-			);
 		})
 		.catch((err) => {
 			result = false;
-			console.log(
-				'in .catch of CheckIfUserExistsService ' +
-					err +
-					+' ' +
-					userId +
-					'result is set to ' +
-					result
-			);
 		});
-	console.log('CheckIfUserExistsService returns ' + result);
+	// console.log('CheckIfUserExistsService returns ' + result);
 	return await result;
 }
 

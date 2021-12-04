@@ -4,7 +4,7 @@ const GetProfileService = async (userNameValue) => {
 	// 	console.log(userNameValue);
 	const result = await UserProfile.find({ userName: userNameValue })
 		.then((userData) => {
-			console.log(userData);
+			// console.log(userData);
 			return userData;
 		})
 		.catch((error) => {

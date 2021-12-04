@@ -8,14 +8,14 @@ router.route('/addUser').post((req, res) => {
 	const userEmail = req.body.userEmail;
 	const description = req.body.description;
 	const passwordUnHashed = req.body.password;
-	console.log(username);
+
 	const newUser = new User({
 		username: username,
 		userEmail: userEmail,
 		description: description,
 		password: passwordUnHashed,
 	});
-	console.log(newUser);
+	// console.log(newUser);
 	newUser
 		.save()
 		.then(() => res.json(`User ${username} addedd successfully`))
