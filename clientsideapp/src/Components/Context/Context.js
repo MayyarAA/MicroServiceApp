@@ -1,5 +1,7 @@
 import React, { createContext, useState } from 'react';
 import { UserObject } from '../Objects/UserObject.js';
+import { EditUserLinkObj } from '../Objects/UserLinkObj.js';
+
 const UserDataContext = createContext();
 
 const UserDataContextProvider = (props) => {
@@ -8,6 +10,7 @@ const UserDataContextProvider = (props) => {
 	const [linksList, setLinksList] = React.useState([]);
 	const [deleteLinksList, setDeleteLinksList] = useState([]);
 	const [userObject, setUserObject] = useState(new UserObject('intial', 'intial'));
+	const [editedLinkObj, setEditedLinkObj] = useState(new EditUserLinkObj('', '', '', ''));
 
 	return (
 		<UserDataContext.Provider
@@ -22,6 +25,8 @@ const UserDataContextProvider = (props) => {
 				setDeleteLinksList,
 				userObject,
 				setUserObject,
+				editedLinkObj,
+				setEditedLinkObj,
 			}}>
 			{props.children}
 		</UserDataContext.Provider>

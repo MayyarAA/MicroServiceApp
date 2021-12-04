@@ -15,14 +15,22 @@ function DeleteUserProfileLinksService(userObject, deleteLinksList) {
 	};
 	const deletUserProfileLinksAPI = async (deleteLinksAPIObject) => {
 		let url = `${baseURL}/UserLinks/deleteLinkExistingUser`;
-		await axios.patch(url, deleteLinksAPIObject);
+		await axios
+			.patch(url, deleteLinksAPIObject)
+			.then((res) => {
+				console.log(res);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
 	};
 	deleteLinksAPIObject.userId = userObject.userId;
 	deleteLinksAPIObject.userName = userObject.userName;
-	for (let i = 0; i < deleteLinksList.length; i++) {
-		console.log(deleteLinksList[i]);
-		deleteLinksAPIObject.listOfLinksIdToRemove.push(deleteLinksList[i].id);
-	}
+	deleteLinksAPIObject.listOfLinksIdToRemove.push(deleteLinksList.linkId);
+	// for (let i = 0; i < deleteLinksList.length; i++) {
+	// 	console.log(deleteLinksList[i]);
+	// 	deleteLinksAPIObject.listOfLinksIdToRemove.push(deleteLinksList[i].id);
+	// }
 	console.log(JSON.stringify(deleteLinksAPIObject));
 	deletUserProfileLinksAPI(deleteLinksAPIObject);
 }

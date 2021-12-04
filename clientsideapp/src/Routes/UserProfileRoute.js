@@ -4,5 +4,8 @@ const UserProfileRoute = {
 const UserEditeRoute = {
 	EditProfilePage: '/EditMyPage',
 };
+const EditSingleLinkRoute = {
+	EditSingleLinkPage: '/EditSingleLinkPage',
+};
 
-export { UserProfileRoute, UserEditeRoute };
+export { UserProfileRoute, UserEditeRoute, EditSingleLinkRoute };

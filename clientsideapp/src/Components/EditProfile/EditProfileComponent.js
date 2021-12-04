@@ -1,11 +1,23 @@
+import React, { useContext, useEffect } from 'react';
+import {
+	UserLinkNameTextField,
+	UserLinkURLTextField,
+	UserLinkImageTextField,
+} from '../TextFields/TextFields.js';
+
 import { UserDataContext } from '../Context/Context.js';
-import React, { useContext, useEffect, useState, useCallback } from 'react';
-import axios from 'axios';
-function EditProfileComponent() {
-	const { userId } = useContext(UserDataContext);
+function EditProfileComponent(textValueDefault) {
+	const { editedLinkObj } = useContext(UserDataContext);
+	textValueDefault = 'userlinkimgae';
 	useEffect(() => {}, []);
 
-	return <div>{userId}</div>;
+	return (
+		<div>
+			<UserLinkNameTextField textValue={editedLinkObj.linkName} />
+			<UserLinkURLTextField textValue={editedLinkObj.link} />
+			<UserLinkImageTextField textValue={editedLinkObj.linkImage} />
+		</div>
+	);
 }
 
 export { EditProfileComponent };

@@ -13,7 +13,11 @@ import { makeStyles } from '@mui/styles';
 import IconButton from '@mui/material/IconButton';
 import { BuildLinksFeatureSetContext } from '../../Services/LinksService/BuildLinksFeature.js';
 import { OverallJSCSS } from '../../ComponentsCSS/OverallJSCSS.js';
-import DeleteIcon from '@mui/icons-material/Delete';
+import { Link } from 'react-router-dom';
+import { EditSingleLinkRoute } from '../../Routes/UserProfileRoute.js';
+import { useHistory } from 'react-router-dom';
+import { EditUserLinkObj } from '../Objects/UserLinkObj.js';
+import EditIcon from '@mui/icons-material/Edit';
 function EditProfileLinksComponent() {
 	return (
 		<div style={OverallJSCSS.makeComponentCentered}>
@@ -36,8 +40,10 @@ const useStyles = makeStyles({
 });
 
 function EditProfileLinksComponentRenderHelper() {
+	const history = useHistory();
 	const styles = useStyles();
 	const { linksList } = useContext(UserDataContext);
+	const { editedLinkObj, setEditedLinkObj } = useContext(UserDataContext);
 	const [linkComponentColor, setLinkComponentColor] = useState('#fafafa');
 	if (linksList === null || linksList === undefined) {
 		BuildLinksFeatureSetContext();
@@ -54,12 +60,6 @@ function EditProfileLinksComponentRenderHelper() {
 	}, [linksList]);
 	useEffect(() => {}, [linkComponentColor]);
 	const deleteLink = (linkObj) => {
-		console.log(
-			'in deletelink caller ' +
-				JSON.stringify(linkObj) +
-				' deleteLinksList.length ' +
-				deleteLinksList.length
-		);
 		setLinkComponentColor('#ffab91');
 		setDeleteLinksList(deleteLinksList.concat(linkObj));
 	};
@@ -87,9 +87,17 @@ function EditProfileLinksComponentRenderHelper() {
 								edge='end'
 								aria-label='delete'
 								onClick={() => {
-									deleteLink(linkObj);
+									setEditedLinkObj(
+										new EditUserLinkObj(
+											linkObj.link,
+											linkObj.linkName,
+											linkObj.id,
+											linkObj.linkImage
+										)
+									);
+									history.push(EditSingleLinkRoute.EditSingleLinkPage);
 								}}>
-								<DeleteIcon />
+								<EditIcon />
 							</IconButton>
 						</ListItem>
 					);
