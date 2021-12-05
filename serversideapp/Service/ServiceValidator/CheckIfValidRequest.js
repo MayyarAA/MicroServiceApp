@@ -29,4 +29,16 @@ function CheckIfValidDeleteLinkRequest(userNameFromReq, userIdFromReq, listOfLin
 	return true;
 }
 
-export { CheckIfValidDeleteLinkRequest };
+const getLinksForUserValidatorService = (req, res) => {
+	if (
+		req.params.userName === null ||
+		req.params.userName === '' ||
+		req.params.userName === ' '
+	) {
+		res.status(400).send('Error need to supply userName');
+		return;
+	}
+	return;
+};
+
+export { CheckIfValidDeleteLinkRequest, getLinksForUserValidatorService };
