@@ -1,4 +1,4 @@
-import { AddUserLinkButton } from './AddUserLinkButton.js';
+// import { AddUserLinkButton } from './AddUserLinkButton.js';
 import React, { useContext, useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -6,28 +6,41 @@ import Grid from '@mui/material/Grid';
 import { AddNewUserLinksService } from '../../../Services/LinksService/AddNewUserLinksService.js';
 import { UserDataContext } from '../../Context/Context.js';
 function AddNewUserLinkComponent() {
-	const [renderUserLinksUserInput, setRenderUserLinksUserInput] = useState(false);
-	const { userObject } = useContext(UserDataContext);
-	useEffect(() => {}, [renderUserLinksUserInput]);
+	const {
+		userObject,
+		userSubmittingNewLink,
+		setUserSubmittingNewLink,
+		renderUserLinksUserInput,
+		setRenderUserLinksUserInput,
+	} = useContext(UserDataContext);
+	useEffect(() => {}, [renderUserLinksUserInput, userSubmittingNewLink]);
 
 	let addNewLinkButton = (
 		<div>
 			<Button
 				onClick={() => {
 					setRenderUserLinksUserInput(!renderUserLinksUserInput);
+					setUserSubmittingNewLink(true);
 				}}
 				variant='outlined'>
 				Add Link
 			</Button>
 		</div>
 	);
+	if (!userSubmittingNewLink) {
+		return (
+			<div>
+				<AddUserLinkUserInputComponent />
+				{addNewLinkButton}
+			</div>
+		);
+	}
 	return (
 		<div>
 			<AddUserLinkUserInputComponent
 				renderUserInput={renderUserLinksUserInput}
 				userObj={userObject}
 			/>
-			{addNewLinkButton}
 		</div>
 	);
 }
@@ -36,10 +49,16 @@ function AddUserLinkUserInputComponent(props) {
 	const [linkNameValue, setLinkNameValue] = useState();
 	const [linkURLValue, setLinkURLValue] = useState();
 	const [linkImageValue, setLinkImageValue] = useState();
-
-	// useEffect(() => {
-	// 	console.log(linkNameValue);
-	// }, [linkNameValue]);
+	const {
+		userObject,
+		renderUserLinksUserInput,
+		setRenderUserLinksUserInput,
+		userSubmittingNewLink,
+		setUserSubmittingNewLink,
+	} = useContext(UserDataContext);
+	useEffect(() => {
+		console.log(linkNameValue);
+	}, [userObject, renderUserLinksUserInput, userSubmittingNewLink]);
 	let userLinkNameTextField = (
 		<div>
 			<TextField
@@ -83,14 +102,16 @@ function AddUserLinkUserInputComponent(props) {
 		<div>
 			<Button
 				onClick={() => {
-					AddNewUserLinksService(linkNameValue, linkURLValue, linkImageValue, props.userObj);
+					AddNewUserLinksService(linkNameValue, linkURLValue, linkImageValue, userObject);
+					setUserSubmittingNewLink(false);
+					setRenderUserLinksUserInput(false);
 				}}
 				variant='outlined'>
 				Submit New Link
 			</Button>
 		</div>
 	);
-	if (props.renderUserInput) {
+	if (renderUserLinksUserInput) {
 		return (
 			<div>
 				<Grid contianer direction='row' justifyContent='center' alignItems='center'>

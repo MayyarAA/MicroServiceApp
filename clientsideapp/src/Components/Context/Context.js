@@ -11,7 +11,8 @@ const UserDataContextProvider = (props) => {
 	const [deleteLinksList, setDeleteLinksList] = useState([]);
 	const [userObject, setUserObject] = useState(new UserObject('intial', 'intial'));
 	const [editedLinkObj, setEditedLinkObj] = useState(new EditUserLinkObj('', '', '', ''));
-
+	const [userSubmittingNewLink, setUserSubmittingNewLink] = useState(false);
+	const [renderUserLinksUserInput, setRenderUserLinksUserInput] = useState(false);
 	return (
 		<UserDataContext.Provider
 			value={{
@@ -27,6 +28,10 @@ const UserDataContextProvider = (props) => {
 				setUserObject,
 				editedLinkObj,
 				setEditedLinkObj,
+				userSubmittingNewLink,
+				setUserSubmittingNewLink,
+				renderUserLinksUserInput,
+				setRenderUserLinksUserInput,
 			}}>
 			{props.children}
 		</UserDataContext.Provider>
