@@ -11,13 +11,9 @@ import Grid from '@mui/material/Grid';
 function EditProfilePage() {
 	return (
 		<div>
-			<div>here from edit page</div>
 			<ProfilePageUserHeader />
 			<EditProfileLinksComponent />
 			<Grid container direction='row' justifyContent='center' alignItems='center'>
-				<Grid item>{/* <EditProfileSubmitButton /> */}</Grid>
-				<Grid item>{/* <EditProfileCancelButton /> */}</Grid>
-				<Grid item>{/* <AddUserLinkButton /> */}</Grid>
 				<Grid item>
 					<Grid item>
 						<AddNewUserLinkComponent />

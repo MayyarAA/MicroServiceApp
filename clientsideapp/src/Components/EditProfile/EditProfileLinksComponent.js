@@ -8,17 +8,27 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import '../../ComponentsCSS/OverallCSS.css';
-import dotenv from 'dotenv';
+
 import { makeStyles } from '@mui/styles';
 import IconButton from '@mui/material/IconButton';
 import { BuildLinksFeatureSetContext } from '../../Services/LinksService/BuildLinksFeature.js';
 import { OverallJSCSS } from '../../ComponentsCSS/OverallJSCSS.js';
-import { Link } from 'react-router-dom';
 import { EditSingleLinkRoute } from '../../Routes/UserProfileRoute.js';
 import { useHistory } from 'react-router-dom';
 import { EditUserLinkObj } from '../Objects/UserLinkObj.js';
 import EditIcon from '@mui/icons-material/Edit';
 function EditProfileLinksComponent() {
+	console.log('renderede');
+	const { linksList, renderUserLinksUserInput, setEditedLinkObj } = useContext(
+		UserDataContext
+	);
+	const [reRenderEditProfileLinksComponent, setReRenderEditProfileLinksComponent] = useState(
+		false
+	);
+	useEffect(() => {
+		console.log(' renderUserLinksUserInput------>' + renderUserLinksUserInput);
+		setReRenderEditProfileLinksComponent(!reRenderEditProfileLinksComponent);
+	}, [renderUserLinksUserInput]);
 	return (
 		<div style={OverallJSCSS.makeComponentCentered}>
 			<EditProfileLinksComponentRenderHelper />
@@ -26,47 +36,27 @@ function EditProfileLinksComponent() {
 	);
 }
 
-const useStyles = makeStyles({
-	root: {
-		'& .Mui-selected': {
-			backgroundColor: 'pink',
-			color: 'red',
-			fontWeight: 'bold',
-		},
-		'& .Mui-selected:hover': {
-			backgroundColor: 'tomato',
-		},
-	},
-});
+const openNewTap = (link) => {
+	const newWindow = window.open(link, '_blank', 'noopener,noreferrer');
+	if (newWindow) newWindow.opener = null;
+};
 
 function EditProfileLinksComponentRenderHelper() {
 	const history = useHistory();
-	const styles = useStyles();
-	const { linksList } = useContext(UserDataContext);
-	const { editedLinkObj, setEditedLinkObj } = useContext(UserDataContext);
-	const [linkComponentColor, setLinkComponentColor] = useState('#fafafa');
+	const { linksList, renderUserLinksUserInput, setEditedLinkObj } = useContext(
+		UserDataContext
+	);
+	BuildLinksFeatureSetContext();
+
 	if (linksList === null || linksList === undefined) {
 		BuildLinksFeatureSetContext();
 	}
 	let resultUIComponent;
-	const [localLinks, setLocalLinks] = useState([]);
-	const { deleteLinksList, setDeleteLinksList } = useContext(UserDataContext);
-	const openNewTap = (link) => {
-		const newWindow = window.open(link, '_blank', 'noopener,noreferrer');
-		if (newWindow) newWindow.opener = null;
-	};
-	useEffect(() => {
-		setLocalLinks(linksList);
-	}, [linksList]);
-	useEffect(() => {}, [linkComponentColor]);
-	const deleteLink = (linkObj) => {
-		setLinkComponentColor('#ffab91');
-		setDeleteLinksList(deleteLinksList.concat(linkObj));
-	};
-	if (localLinks !== undefined || localLinks !== null) {
+	useEffect(() => {}, [linksList]);
+	if (linksList !== undefined || linksList !== null) {
 		resultUIComponent = (
 			<List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-				{localLinks.map((linkObj) => {
+				{linksList.map((linkObj) => {
 					const labelId = `checkbox-list-secondary-label-${linkObj.id}`;
 					return (
 						<ListItem key={linkObj.id}>
