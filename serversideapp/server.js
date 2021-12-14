@@ -10,6 +10,7 @@ import { userLinksRouter } from './Controller/UserLinksController.js';
 import { userProfileRouter } from './Controller/UserProfleController/UserProfileUploadController.js';
 import { getUserProfileRouter } from './Controller/UserProfleController/UserProfileGetController.js';
 import { AuthLoginRouter } from './Controller/Auth/LoginUserDefault.js';
+import { checkIfUserIsAuthenticated } from './Service/Auth/AuthenticationService.js';
 import https from 'https';
 import fs from 'fs';
 import passport from 'passport';
@@ -33,7 +34,7 @@ app.use(
 initializePassport(passport);
 app.use(passport.initialize());
 app.use(passport.session());
-app.get('/', (req, res) => {
+app.get('/', checkIfUserIsAuthenticated, (req, res) => {
 	res.send('Hello World!');
 });
 app.listen(apiPort, () => {
@@ -59,6 +60,11 @@ app.get('/loginerror', function (req, res) {
 app.get('/loginsuccess', function (req, res) {
 	console.log('here in login success');
 	res.status(400).send(`login success for user ${req.user.username}`);
+});
+
+app.get('/notloggedin', function (req, res) {
+	console.log('here in notloggedin');
+	res.status(400).send(`user needs to login to access E.P`);
 });
 
 app.use('/exercises', exercisesRouter);

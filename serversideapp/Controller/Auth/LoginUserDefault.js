@@ -19,11 +19,19 @@ const router = express.Router();
 
 router.post(
 	'/login',
-	passport.authenticate('local', {
-		successRedirect: '/loginsuccess',
-		failureRedirect: '/loginError',
-		failureMessage: true,
-	})
+	passport.authenticate(
+		'local',
+		{
+			successRedirect: '/loginsuccess',
+			failureRedirect: '/loginError',
+			failureMessage: true,
+		}
+		// ,
+		// () => {
+		// 	console.log('here in login route');
+		// 	return;
+		// }
+	)
 );
 
 router.route('/getUserPassword').get((req, res) => {
