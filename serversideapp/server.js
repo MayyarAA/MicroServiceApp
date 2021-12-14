@@ -56,6 +56,11 @@ app.get('/loginerror', function (req, res) {
 	res.status(400).send('here in login error');
 });
 
+app.get('/loginsuccess', function (req, res) {
+	console.log('here in login success');
+	res.status(400).send(`login success for user ${req.user.username}`);
+});
+
 app.use('/exercises', exercisesRouter);
 app.use('/books', bookRouter);
 app.use('/User/', userRegisterRouter);

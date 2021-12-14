@@ -20,7 +20,7 @@ const router = express.Router();
 router.post(
 	'/login',
 	passport.authenticate('local', {
-		successRedirect: '/',
+		successRedirect: '/loginsuccess',
 		failureRedirect: '/loginError',
 		failureMessage: true,
 	})
