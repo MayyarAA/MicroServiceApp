@@ -15,7 +15,6 @@ function AddNewUserLinksService(linkName, linkURL, linkImage, userObject) {
 	let userLinkObject = { link: linkURL, linkName: linkName, linkImage: linkImage };
 	addNewLinkExistingUserObj.userDataObject.push(userLinkObject);
 	addNewLinkExistingUserObj.userName = userObject.userName;
-	// console.log(JSON.stringify(addNewLinkExistingUserObj));
 	deletUserProfileLinksAPI(addNewLinkExistingUserObj);
 }
 const deletUserProfileLinksAPI = async (addNewLinkExistingUserObj) => {

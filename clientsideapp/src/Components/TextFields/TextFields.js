@@ -27,7 +27,7 @@ function UserLinkNameTextField(props) {
 
 function UserLinkURLTextField(props) {
 	const [linkURLValue, setLinkURLValue] = useState();
-	const { editedLinkObj, setEditedLinkObj } = useContext(UserDataContext);
+	const { setEditedLinkObj } = useContext(UserDataContext);
 	return (
 		<div>
 			<TextField
