@@ -53,13 +53,13 @@ connectDB();
 // );
 
 app.get('/loginerror', function (req, res) {
-	console.log('here in login error');
+	console.log('here in login error ' + JSON.stringify(req.user));
 	res.status(400).send('here in login error');
 });
 
 app.get('/loginsuccess', function (req, res) {
-	console.log('here in login success');
-	res.status(400).send(`login success for user ${req.user.username}`);
+	console.log('here in login success ' + JSON.stringify(req.user));
+	res.status(200).send(`login success for user ${JSON.stringify(req.user)}`);
 });
 
 app.get('/notloggedin', function (req, res) {
