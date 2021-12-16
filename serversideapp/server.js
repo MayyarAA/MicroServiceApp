@@ -60,7 +60,7 @@ app.get('/loginerror', function (req, res) {
 
 app.get('/loginsuccess', function (req, res) {
 	console.log('here in login success ' + JSON.stringify(req.user));
-	res.status(200).send(`login success for user ${JSON.stringify(req.user)}`);
+	res.status(200).json(req.user);
 });
 
 app.get('/notloggedin', function (req, res) {
