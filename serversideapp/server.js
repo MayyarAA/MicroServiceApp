@@ -31,11 +31,12 @@ app.use(
 		saveUninitialized: false,
 	})
 );
-initializePassport(passport);
+await initializePassport(passport);
 app.use(passport.initialize());
 app.use(passport.session());
 app.get('/', checkIfUserIsAuthenticated, (req, res) => {
-	res.send('Hello World!');
+	// console.log(JSON.stringify(req.user));
+	res.send(`Hello ${req.user}!`);
 });
 app.listen(apiPort, () => {
 	console.log(`your server is listing on ${apiPort}`);
