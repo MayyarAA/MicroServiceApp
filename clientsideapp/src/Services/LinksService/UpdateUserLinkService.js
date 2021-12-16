@@ -38,7 +38,7 @@ function UpdateUserLinkService(userObject, editUserLinkObj) {
 			linkImage: editUserLinkObj.linkImage,
 		},
 	};
-	const apiResponse = updateUserLinkAPICall(updateUserLinkAPIObj);
+	updateUserLinkAPICall(updateUserLinkAPIObj);
 }
 
 export { UpdateUserLinkService };

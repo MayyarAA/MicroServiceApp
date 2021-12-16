@@ -35,7 +35,7 @@ function UserProfileLinks() {
 
 function UserProfileLinksListComponent() {
 	const { linksList } = useContext(UserDataContext);
-	let resultUIComponent;
+	let resultUIComponent = <h2>user does not have links</h2>;
 	const [localLinks, setLocalLinks] = useState([]);
 	const openNewTap = (link) => {
 		const newWindow = window.open(link, '_blank', 'noopener,noreferrer');
