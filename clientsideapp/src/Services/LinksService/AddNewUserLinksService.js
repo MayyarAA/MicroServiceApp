@@ -15,12 +15,12 @@ function AddNewUserLinksService(linkName, linkURL, linkImage, userObject) {
 	let userLinkObject = { link: linkURL, linkName: linkName, linkImage: linkImage };
 	addNewLinkExistingUserObj.userDataObject.push(userLinkObject);
 	addNewLinkExistingUserObj.userName = userObject.username;
-	deletUserProfileLinksAPI(addNewLinkExistingUserObj);
+	addNewUserLinksAPI(addNewLinkExistingUserObj);
 }
-const deletUserProfileLinksAPI = async (addNewLinkExistingUserObj) => {
+const addNewUserLinksAPI = async (addNewLinkExistingUserObj) => {
 	console.log(JSON.stringify(addNewLinkExistingUserObj));
 	console.log(addNewLinkExistingUserObj.userName);
-	let url = `${baseURL}/UserLinks/addLinkExistingUser`;
+	let url = `${baseURL}/modifylinks/addLinkExistingUser`;
 	await axios
 		.patch(url, addNewLinkExistingUserObj)
 		.then((res) => {
