@@ -7,6 +7,7 @@ import { exercisesRouter } from './Controller/ExcersieController.js';
 import { bookRouter } from './Controller/BookController.js';
 import { userRegisterRouter } from './Controller/Auth/UserRegisterController.js';
 import { userLinksRouter } from './Controller/UserLinksController.js';
+import { userLinksEditRouter } from './Controller/UserLinksEditsController/UserLinksModifyController.js';
 import { userProfileRouter } from './Controller/UserProfleController/UserProfileUploadController.js';
 import { getUserProfileRouter } from './Controller/UserProfleController/UserProfileGetController.js';
 import { AuthLoginRouter } from './Controller/Auth/LoginUserDefault.js';
@@ -69,12 +70,13 @@ app.get('/notloggedin', function (req, res) {
 });
 
 app.use('/exercises', exercisesRouter);
-app.use('/books', bookRouter);
+app.use('/books', checkIfUserIsAuthenticated, bookRouter);
 app.use('/User/', userRegisterRouter);
 app.use('/UserLinks/', userLinksRouter);
 app.use('/profile/', userProfileRouter);
 app.use('/getprofile/', getUserProfileRouter);
 app.use('/auth', AuthLoginRouter);
+app.use('/modifylinks', userLinksEditRouter);
 const sslServer = https.createServer(
 	{
 		key: fs.readFileSync('./Certificate/key.pem'),
