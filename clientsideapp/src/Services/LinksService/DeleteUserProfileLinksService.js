@@ -20,10 +20,11 @@ function DeleteUserProfileLinksService(userObject, deleteLinksList) {
 				console.log(err);
 			});
 	};
-	deleteLinksAPIObject.userId = userObject.userId;
-	deleteLinksAPIObject.userName = userObject.userName;
+	deleteLinksAPIObject.userId = '111111';
+	deleteLinksAPIObject.userName = userObject.username;
 	deleteLinksAPIObject.listOfLinksIdToRemove.push(deleteLinksList.linkId);
-
+	console.log('userObject ' + JSON.stringify(userObject));
+	console.log('deleteLinksAPIObject.userName ' + deleteLinksAPIObject.userName);
 	console.log(JSON.stringify(deleteLinksAPIObject));
 	deletUserProfileLinksAPI(deleteLinksAPIObject);
 }

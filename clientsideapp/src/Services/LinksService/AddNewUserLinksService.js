@@ -7,18 +7,19 @@ dotenv.config();
 const baseURL = process.env.REACT_APP_LOCALHOSTURL;
 
 function AddNewUserLinksService(linkName, linkURL, linkImage, userObject) {
-	// console.log(JSON.stringify(userObject));
+	console.log(JSON.stringify(userObject));
 	let addNewLinkExistingUserObj = {
 		userName: '',
 		userDataObject: [],
 	};
 	let userLinkObject = { link: linkURL, linkName: linkName, linkImage: linkImage };
 	addNewLinkExistingUserObj.userDataObject.push(userLinkObject);
-	addNewLinkExistingUserObj.userName = userObject.userName;
+	addNewLinkExistingUserObj.userName = userObject.username;
 	deletUserProfileLinksAPI(addNewLinkExistingUserObj);
 }
 const deletUserProfileLinksAPI = async (addNewLinkExistingUserObj) => {
 	console.log(JSON.stringify(addNewLinkExistingUserObj));
+	console.log(addNewLinkExistingUserObj.userName);
 	let url = `${baseURL}/UserLinks/addLinkExistingUser`;
 	await axios
 		.patch(url, addNewLinkExistingUserObj)

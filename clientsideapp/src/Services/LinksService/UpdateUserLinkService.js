@@ -29,8 +29,8 @@ const updateUserLinkAPICall = async (updateUserLinkAPIObj) => {
 
 function UpdateUserLinkService(userObject, editUserLinkObj) {
 	let updateUserLinkAPIObj = {
-		userName: userObject.userName,
-		userId: userObject.userName,
+		userName: userObject.username,
+		userId: userObject.username,
 		linkId: editUserLinkObj.linkId,
 		linkObj: {
 			link: editUserLinkObj.link,
