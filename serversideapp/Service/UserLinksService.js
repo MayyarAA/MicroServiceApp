@@ -17,18 +17,10 @@ const getLinksForUserService = async (res, userNameFromReq) => {
 	// async function getLinksForUserService(res, userNameFromReq) {
 	await UserLinks.find({ userName: userNameFromReq })
 		.then((userData) => {
-			console.log(userData);
-			// if (userDate === undefined || userDate === null || userDate.length === 0) {
-			// 	console.log('here in if statement');
-			// 	res.status(404).send('Error no user found with given userName');
-			// 	return;
-			// }
-			console.log('here after if statement');
 			res.json(userData);
 			return;
 		})
 		.catch((error) => {
-			console.log('here in catch block');
 			res.status(400).json(error);
 			return;
 		});

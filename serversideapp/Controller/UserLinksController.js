@@ -21,7 +21,6 @@ router.route('/addLink').post((req, res) => {
 router.route('/getLink/:userName').get(async (req, res) => {
 	getLinksForUserValidatorService(req, res);
 	await getLinksForUserService(res, req.params.userName);
-	console.log('here after service call');
 });
 
 export { router as userLinksRouter };

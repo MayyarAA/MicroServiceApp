@@ -47,8 +47,6 @@ router.route('/addLinkExistingUser').patch((req, res) => {
 		console.log('here in if');
 		return;
 	}
-	console.log('here in addLinkExistingUser');
-
 	addNewLinkExistingUserService(
 		res,
 		userNameFilter,

@@ -1,7 +1,7 @@
 import { UserLinks } from '../../Model/UserLinksModel.js';
 
 const callAddLinkService = async (res, userName, userAPIData) => {
-	console.log(' userAPIData ' + userAPIData[0]);
+	// console.log(' userAPIData ' + userAPIData[0]);
 	const newUserLink = new UserLinks({
 		userName: userName,
 		userData: userAPIData,

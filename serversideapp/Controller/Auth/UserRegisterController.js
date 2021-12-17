@@ -9,7 +9,6 @@ const router = express.Router();
 // 		description: { type: String, required: false },
 // 		password: { type: String, required: true },
 router.route('/nativeregister').post(async (req, res) => {
-	console.log('here from nativeregister post');
 	//check if there a user with the same username
 	console.log('req.body.password ---->>' + req.body.password);
 	const hashedPassword = await hashPassword(req.body.password);
@@ -46,7 +45,6 @@ router.route('/addUser').post((req, res) => {
 		description: description,
 		password: passwordUnHashed,
 	});
-	// console.log(newUser);
 	newUser
 		.save()
 		.then(() => res.json(`User ${username} addedd successfully`))
