@@ -13,57 +13,6 @@ const callAddLinkService = async (res, userName, userAPIData) => {
 		.catch((err) => res.status(400).json(`Error ${err}`));
 };
 
-const addNewLinkExistingUserService = (
-	res,
-	userNameFilter,
-	userDataLinksSchemaLocal,
-	userNotFoundError
-) => {
-	UserLinks.findOneAndUpdate(
-		userNameFilter,
-		{
-			$push: { userData: userDataLinksSchemaLocal },
-		},
-		{ new: true },
-		(error, result) => {
-			console.log('userNameFilter ' + JSON.stringify(userNameFilter));
-			if (result === null) {
-				console.log('in addNewLinkExistingUserService result ' + JSON.stringify(result));
-				res.status(404).send(userNotFoundError);
-				return;
-			}
-			console.log('int addNewLinkExistingUserService result ' + JSON.stringify(result));
-			res.status(201).json(result);
-			return;
-		}
-	);
-};
-
-const deleteUserLinksService = (
-	res,
-	userIdFromReq,
-	userNameFromReq,
-	listOfLinksIdToRemove
-) => {
-	for (let i = 0; i < listOfLinksIdToRemove.length; i++) {
-		const linkIdToRemove = listOfLinksIdToRemove[i];
-		UserLinks.updateOne(
-			// { _id: userIdFromReq },
-			{ userName: userNameFromReq },
-			{ $pull: { userData: { _id: linkIdToRemove } } },
-			{ safe: true, multi: true },
-			(error, result) => {
-				if (error !== null) {
-					res.status(404).send(error);
-					return;
-				}
-				res.status(201).json(result);
-				return;
-			}
-		);
-	}
-};
-
 const updateUserLinkValueService = (res, userNameFromReq, linkIdFromReq, linkObj) => {
 	UserLinks.findOneAndUpdate(
 		{ userName: userNameFromReq, userData: { $elemMatch: { _id: linkIdFromReq } } },
@@ -108,10 +57,4 @@ const getLinksForUserService = async (res, userNameFromReq) => {
 			return;
 		});
 };
-export {
-	callAddLinkService,
-	addNewLinkExistingUserService,
-	deleteUserLinksService,
-	updateUserLinkValueService,
-	getLinksForUserService,
-};
+export { callAddLinkService, updateUserLinkValueService, getLinksForUserService };

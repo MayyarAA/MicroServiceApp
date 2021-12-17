@@ -37,4 +37,29 @@ const deleteUserLinksService = (
 	}
 };
 
-export { callAddLinkService, deleteUserLinksService };
+const addNewLinkExistingUserService = (
+	res,
+	userNameFilter,
+	userDataLinksSchemaLocal,
+	userNotFoundError
+) => {
+	UserLinks.findOneAndUpdate(
+		userNameFilter,
+		{
+			$push: { userData: userDataLinksSchemaLocal },
+		},
+		{ new: true },
+		(error, result) => {
+			console.log('userNameFilter ' + JSON.stringify(userNameFilter));
+			if (result === null) {
+				console.log('in addNewLinkExistingUserService result ' + JSON.stringify(result));
+				res.status(404).send(userNotFoundError);
+				return;
+			}
+			console.log('int addNewLinkExistingUserService result ' + JSON.stringify(result));
+			res.status(201).json(result);
+			return;
+		}
+	);
+};
+export { callAddLinkService, deleteUserLinksService, addNewLinkExistingUserService };

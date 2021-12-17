@@ -6,12 +6,9 @@ import {
 	CheckIfValidDeleteLinkRequest,
 	getLinksForUserValidatorService,
 } from '../Service/ServiceValidator/CheckIfValidRequest.js';
-import { validateAddLinkExistingUserRequest } from '../Service/ServiceValidator/UserLinksServiceValidator.js';
 import { updateUserLinkValueValidatorService } from '../Service/ServiceValidator/UpdateUserLinkValueValidatorService.js';
 import {
 	callAddLinkService,
-	addNewLinkExistingUserService,
-	deleteUserLinksService,
 	updateUserLinkValueService,
 	getLinksForUserService,
 } from '../Service/UserLinksService.js';
@@ -24,40 +21,6 @@ router.route('/addLink').post((req, res) => {
 		userAPIData.push(req.body.userData[i]);
 	}
 	callAddLinkService(res, userName, userAPIData);
-});
-
-router.route('/addLinkExistingUser').patch((req, res) => {
-	const userNameFromReq = req.body.userName;
-	const userDataLinksSchemaLocal = req.body.userDataObject;
-
-	const userNameFilter = { userName: userNameFromReq };
-	const userNotFoundError = UserNotFoundErrorMessage(userNameFromReq);
-	// console.log('here before');
-	if (!validateAddLinkExistingUserRequest(res, userNameFromReq, userDataLinksSchemaLocal)) {
-		console.log('here in if');
-		return;
-	}
-	console.log('here in addLinkExistingUser');
-
-	addNewLinkExistingUserService(
-		res,
-		userNameFilter,
-		userDataLinksSchemaLocal,
-		userNotFoundError
-	);
-});
-
-router.route('/deleteLinkExistingUser').patch((req, res) => {
-	const userNameFromReq = req.body.userName;
-	const userIdFromReq = req.body.userId;
-
-	const listOfLinksIdToRemove = req.body.listOfLinksIdToRemove;
-	if (!CheckIfValidDeleteLinkRequest(userNameFromReq, userIdFromReq, listOfLinksIdToRemove)) {
-		res.status(400).send('Bad Request');
-		return;
-	}
-
-	deleteUserLinksService(res, userIdFromReq, userNameFromReq, listOfLinksIdToRemove);
 });
 
 router.route('/updateLinkValue').patch((req, res) => {
