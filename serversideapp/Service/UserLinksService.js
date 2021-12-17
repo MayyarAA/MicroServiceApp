@@ -13,30 +13,6 @@ const callAddLinkService = async (res, userName, userAPIData) => {
 		.catch((err) => res.status(400).json(`Error ${err}`));
 };
 
-const updateUserLinkValueService = (res, userNameFromReq, linkIdFromReq, linkObj) => {
-	UserLinks.findOneAndUpdate(
-		{ userName: userNameFromReq, userData: { $elemMatch: { _id: linkIdFromReq } } },
-		{
-			$set: {
-				'userData.$.link': linkObj.link,
-				'userData.$.linkName': linkObj.linkName,
-				'userData.$.linkImage': linkObj.linkImage,
-			},
-		},
-		{ new: true, useFindAndModify: false },
-
-		(error, responseMongoo) => {
-			// console.log('----- error ' + error + ' -----responseMongoo ' + responseMongoo);
-			if (error === 'MongoError' || error !== null || responseMongoo === null) {
-				res.status(404).json(error);
-				return;
-			}
-			res.status(201).json(responseMongoo);
-			return;
-		}
-	);
-};
-
 const getLinksForUserService = async (res, userNameFromReq) => {
 	// async function getLinksForUserService(res, userNameFromReq) {
 	await UserLinks.find({ userName: userNameFromReq })
@@ -57,4 +33,4 @@ const getLinksForUserService = async (res, userNameFromReq) => {
 			return;
 		});
 };
-export { callAddLinkService, updateUserLinkValueService, getLinksForUserService };
+export { callAddLinkService, getLinksForUserService };

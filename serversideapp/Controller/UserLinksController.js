@@ -6,12 +6,7 @@ import {
 	CheckIfValidDeleteLinkRequest,
 	getLinksForUserValidatorService,
 } from '../Service/ServiceValidator/CheckIfValidRequest.js';
-import { updateUserLinkValueValidatorService } from '../Service/ServiceValidator/UpdateUserLinkValueValidatorService.js';
-import {
-	callAddLinkService,
-	updateUserLinkValueService,
-	getLinksForUserService,
-} from '../Service/UserLinksService.js';
+import { callAddLinkService, getLinksForUserService } from '../Service/UserLinksService.js';
 const router = express.Router();
 
 router.route('/addLink').post((req, res) => {
@@ -21,17 +16,6 @@ router.route('/addLink').post((req, res) => {
 		userAPIData.push(req.body.userData[i]);
 	}
 	callAddLinkService(res, userName, userAPIData);
-});
-
-router.route('/updateLinkValue').patch((req, res) => {
-	const userNameFromReq = req.body.userName;
-	const linkIdFromReq = req.body.linkId;
-	const linkObj = req.body.linkObj;
-	if (!updateUserLinkValueValidatorService(res, userNameFromReq, linkIdFromReq, linkObj)) {
-		return;
-	}
-	//wait for response from validator
-	updateUserLinkValueService(res, userNameFromReq, linkIdFromReq, linkObj);
 });
 
 router.route('/getLink/:userName').get(async (req, res) => {

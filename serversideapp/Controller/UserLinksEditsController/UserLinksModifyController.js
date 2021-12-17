@@ -3,12 +3,14 @@ import {
 	callAddLinkService,
 	deleteUserLinksService,
 	addNewLinkExistingUserService,
+	updateUserLinkValueService,
 } from '../../Service/UserLinksModifyServices/UserLinksModifyServices.js';
 import {
 	CheckIfValidDeleteLinkRequest,
 	getLinksForUserValidatorService,
 } from '../../Service/ServiceValidator/CheckIfValidRequest.js';
 import { validateAddLinkExistingUserRequest } from '../../Service/ServiceValidator/UserLinksServiceValidator.js';
+import { updateUserLinkValueValidatorService } from '../../Service/ServiceValidator/UpdateUserLinkValueValidatorService.js';
 import { UserNotFoundErrorMessage } from '../../General/ErrorMessages/APIErrorrMessages.js';
 const router = express.Router();
 
@@ -53,6 +55,17 @@ router.route('/addLinkExistingUser').patch((req, res) => {
 		userDataLinksSchemaLocal,
 		userNotFoundError
 	);
+});
+
+router.route('/updateLinkValue').patch((req, res) => {
+	const userNameFromReq = req.body.userName;
+	const linkIdFromReq = req.body.linkId;
+	const linkObj = req.body.linkObj;
+	if (!updateUserLinkValueValidatorService(res, userNameFromReq, linkIdFromReq, linkObj)) {
+		return;
+	}
+	//wait for response from validator
+	updateUserLinkValueService(res, userNameFromReq, linkIdFromReq, linkObj);
 });
 
 export { router as userLinksEditRouter };

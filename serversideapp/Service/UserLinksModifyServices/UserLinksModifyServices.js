@@ -62,4 +62,33 @@ const addNewLinkExistingUserService = (
 		}
 	);
 };
-export { callAddLinkService, deleteUserLinksService, addNewLinkExistingUserService };
+
+const updateUserLinkValueService = (res, userNameFromReq, linkIdFromReq, linkObj) => {
+	UserLinks.findOneAndUpdate(
+		{ userName: userNameFromReq, userData: { $elemMatch: { _id: linkIdFromReq } } },
+		{
+			$set: {
+				'userData.$.link': linkObj.link,
+				'userData.$.linkName': linkObj.linkName,
+				'userData.$.linkImage': linkObj.linkImage,
+			},
+		},
+		{ new: true, useFindAndModify: false },
+
+		(error, responseMongoo) => {
+			// console.log('----- error ' + error + ' -----responseMongoo ' + responseMongoo);
+			if (error === 'MongoError' || error !== null || responseMongoo === null) {
+				res.status(404).json(error);
+				return;
+			}
+			res.status(201).json(responseMongoo);
+			return;
+		}
+	);
+};
+export {
+	callAddLinkService,
+	deleteUserLinksService,
+	addNewLinkExistingUserService,
+	updateUserLinkValueService,
+};
