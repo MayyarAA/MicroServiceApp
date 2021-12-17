@@ -26,21 +26,30 @@ const addNewLinkExistingUserService = (
 		},
 		{ new: true },
 		(error, result) => {
+			console.log('userNameFilter ' + JSON.stringify(userNameFilter));
 			if (result === null) {
+				console.log('in addNewLinkExistingUserService result ' + JSON.stringify(result));
 				res.status(404).send(userNotFoundError);
 				return;
 			}
+			console.log('int addNewLinkExistingUserService result ' + JSON.stringify(result));
 			res.status(201).json(result);
 			return;
 		}
 	);
 };
 
-const deleteUserLinksService = (res, userIdFromReq, listOfLinksIdToRemove) => {
+const deleteUserLinksService = (
+	res,
+	userIdFromReq,
+	userNameFromReq,
+	listOfLinksIdToRemove
+) => {
 	for (let i = 0; i < listOfLinksIdToRemove.length; i++) {
 		const linkIdToRemove = listOfLinksIdToRemove[i];
 		UserLinks.updateOne(
-			{ _id: userIdFromReq },
+			// { _id: userIdFromReq },
+			{ userName: userNameFromReq },
 			{ $pull: { userData: { _id: linkIdToRemove } } },
 			{ safe: true, multi: true },
 			(error, result) => {

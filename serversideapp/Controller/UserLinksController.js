@@ -37,7 +37,7 @@ router.route('/addLinkExistingUser').patch((req, res) => {
 		console.log('here in if');
 		return;
 	}
-	// console.log('here after');
+	console.log('here in addLinkExistingUser');
 
 	addNewLinkExistingUserService(
 		res,
@@ -57,7 +57,7 @@ router.route('/deleteLinkExistingUser').patch((req, res) => {
 		return;
 	}
 
-	deleteUserLinksService(res, userIdFromReq, listOfLinksIdToRemove);
+	deleteUserLinksService(res, userIdFromReq, userNameFromReq, listOfLinksIdToRemove);
 });
 
 router.route('/updateLinkValue').patch((req, res) => {
