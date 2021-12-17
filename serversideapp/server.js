@@ -22,9 +22,18 @@ const app = express();
 const apiPort = 8000;
 dotenv.config();
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors());
+// app.use(cors());
+app.use(
+	cors({
+		// origin: 'http://localhost:3000', // allow to server to accept request from different origin
+		origin: `${process.env.CLIENTSIDE_PORT}`, // allow to server to accept request from different origin
+		methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+		credentials: true, // allow session cookie from browser to pass through
+	})
+);
 app.use(bodyParser.json());
 app.use(flash());
+connectDB();
 app.use(
 	session({
 		secret: 'secret',
@@ -35,37 +44,27 @@ app.use(
 await initializePassport(passport);
 app.use(passport.initialize());
 app.use(passport.session());
-app.get('/', checkIfUserIsAuthenticated, (req, res) => {
-	// console.log(JSON.stringify(req.user));
-	res.send(`Hello ${req.user}!`);
-});
 app.listen(apiPort, () => {
 	console.log(`your server is listing on ${apiPort}`);
 });
 
-connectDB();
-
-// app.post(
-// 	'/login',
-// 	passport.authenticate('local', { failureRedirect: '/login' }),
-// 	function (req, res) {
-// 		console.log('here in login');
-// 		res.status(200);
-// 	}
-// );
+app.get('/', checkIfUserIsAuthenticated, (req, res) => {
+	// console.log(JSON.stringify(req.user));
+	res.send(`Hello ${req.user}!`);
+});
 
 app.get('/loginerror', function (req, res) {
-	console.log('here in login error ' + JSON.stringify(req.user));
+	console.log('here in login error ');
 	res.status(400).send('here in login error');
 });
 
 app.get('/loginsuccess', function (req, res) {
-	console.log('here in login success ' + JSON.stringify(req.user));
+	console.log('here in login success ');
 	res.status(200).json(req.user);
 });
 
 app.get('/notloggedin', function (req, res) {
-	console.log('here in notloggedin');
+	console.log('here in notloggedin' + req.user);
 	res.status(400).send(`user needs to login to access E.P`);
 });
 
@@ -76,7 +75,8 @@ app.use('/UserLinks/', userLinksRouter);
 app.use('/profile/', userProfileRouter);
 app.use('/getprofile/', getUserProfileRouter);
 app.use('/auth', AuthLoginRouter);
-app.use('/modifylinks', userLinksEditRouter);
+app.use('/modifylinks', checkIfUserIsAuthenticated, userLinksEditRouter);
+
 const sslServer = https.createServer(
 	{
 		key: fs.readFileSync('./Certificate/key.pem'),
