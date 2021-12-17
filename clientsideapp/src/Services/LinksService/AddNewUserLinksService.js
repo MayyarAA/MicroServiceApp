@@ -22,7 +22,7 @@ const addNewUserLinksAPI = async (addNewLinkExistingUserObj) => {
 	console.log(addNewLinkExistingUserObj.userName);
 	let url = `${baseURL}/modifylinks/addLinkExistingUser`;
 	await axios
-		.patch(url, addNewLinkExistingUserObj)
+		.patch(url, addNewLinkExistingUserObj, { withCredentials: true })
 		.then((res) => {
 			console.log(res);
 		})

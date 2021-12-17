@@ -19,7 +19,7 @@ async function AuthenticateUserServiceAPI(unAuthenticatedUserObj) {
 	let authenticationResult = false;
 
 	authenticationResult = await axios
-		.post(url, unAuthenticatedUserObj)
+		.post(url, unAuthenticatedUserObj, { withCredentials: true })
 		.then((res) => {
 			console.log(res);
 			return true;

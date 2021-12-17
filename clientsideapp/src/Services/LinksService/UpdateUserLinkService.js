@@ -7,7 +7,7 @@ const baseURL = process.env.REACT_APP_LOCALHOSTURL;
 const updateUserLinkAPICall = async (updateUserLinkAPIObj) => {
 	const url = `${baseURL}/modifylinks/updateLinkValue`;
 	await axios
-		.patch(url, updateUserLinkAPIObj)
+		.patch(url, updateUserLinkAPIObj, { withCredentials: true })
 		.then((res) => {
 			if (res.status === 201) {
 				console.log('res ' + res);

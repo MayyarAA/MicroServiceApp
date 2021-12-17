@@ -12,7 +12,7 @@ function DeleteUserProfileLinksService(userObject, deleteLinksList) {
 	const deletUserProfileLinksAPI = async (deleteLinksAPIObject) => {
 		let url = `${baseURL}/modifylinks/deleteLinkExistingUser`;
 		await axios
-			.patch(url, deleteLinksAPIObject)
+			.patch(url, deleteLinksAPIObject, { withCredentials: true })
 			.then((res) => {
 				console.log(res);
 			})
