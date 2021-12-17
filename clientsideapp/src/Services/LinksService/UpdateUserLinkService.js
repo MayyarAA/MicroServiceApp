@@ -5,7 +5,7 @@ dotenv.config();
 const baseURL = process.env.REACT_APP_LOCALHOSTURL;
 
 const updateUserLinkAPICall = async (updateUserLinkAPIObj) => {
-	const url = `${baseURL}/UserLinks/updateLinkValue`;
+	const url = `${baseURL}/modifylinks/updateLinkValue`;
 	await axios
 		.patch(url, updateUserLinkAPIObj)
 		.then((res) => {
