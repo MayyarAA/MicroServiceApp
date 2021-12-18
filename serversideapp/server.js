@@ -45,7 +45,10 @@ await initializePassport(passport);
 app.use(passport.initialize());
 app.use(passport.session());
 app.listen(apiPort, () => {
-	console.log(`your server is listing on ${apiPort}`);
+	console.log(
+		`your server is listing on ${apiPort}` +
+			`clientside ip+port ${process.env.CLIENTSIDE_PORT}`
+	);
 });
 
 app.get('/', checkIfUserIsAuthenticated, (req, res) => {
@@ -54,7 +57,7 @@ app.get('/', checkIfUserIsAuthenticated, (req, res) => {
 });
 
 app.get('/loginerror', function (req, res) {
-	console.log('here in login error ');
+	console.log('here in login error ' + req);
 	res.status(400).send('here in login error');
 });
 
@@ -64,7 +67,7 @@ app.get('/loginsuccess', function (req, res) {
 });
 
 app.get('/notloggedin', function (req, res) {
-	console.log('here in notloggedin' + req.user);
+	console.log('here in notloggedin ' + req);
 	res.status(400).send(`user needs to login to access E.P`);
 });
 
