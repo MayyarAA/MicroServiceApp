@@ -5,9 +5,9 @@ dotenv.config();
 const baseURL = process.env.REACT_APP_LOCALHOSTURL;
 
 const updateUserLinkAPICall = async (updateUserLinkAPIObj) => {
-	const url = `${baseURL}/UserLinks/updateLinkValue`;
+	const url = `${baseURL}/modifylinks/updateLinkValue`;
 	await axios
-		.patch(url, updateUserLinkAPIObj)
+		.patch(url, updateUserLinkAPIObj, { withCredentials: true })
 		.then((res) => {
 			if (res.status === 201) {
 				console.log('res ' + res);
@@ -29,8 +29,8 @@ const updateUserLinkAPICall = async (updateUserLinkAPIObj) => {
 
 function UpdateUserLinkService(userObject, editUserLinkObj) {
 	let updateUserLinkAPIObj = {
-		userName: userObject.userName,
-		userId: userObject.userName,
+		userName: userObject.username,
+		userId: userObject.username,
 		linkId: editUserLinkObj.linkId,
 		linkObj: {
 			link: editUserLinkObj.link,
@@ -38,7 +38,7 @@ function UpdateUserLinkService(userObject, editUserLinkObj) {
 			linkImage: editUserLinkObj.linkImage,
 		},
 	};
-	const apiResponse = updateUserLinkAPICall(updateUserLinkAPIObj);
+	updateUserLinkAPICall(updateUserLinkAPIObj);
 }
 
 export { UpdateUserLinkService };

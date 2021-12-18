@@ -7,19 +7,21 @@ dotenv.config();
 const baseURL = process.env.REACT_APP_LOCALHOSTURL;
 
 function ProfilePageUserHeader() {
-	const { userId } = useContext(UserDataContext);
+	const { userObject, unAuthenticatedUserObj } = useContext(UserDataContext);
 	const [userProfileData, setUserProfileData] = useState();
 	const [userProfileImage, setUserProfileImage] = useState();
+	// console.log(JSON.stringify(unAuthenticatedUserObj));
+	// console.log('userObject ' + JSON.stringify(userObject));
 	useEffect(() => {
 		//call to get user details
 		getUserProfileAPICall();
-	}, [userId]);
+	}, [userObject]);
 	useEffect(() => {
 		renderUserProfileData();
 	}, [userProfileData]);
 
 	let getUserProfileAPICall = useCallback(async () => {
-		let url = `${baseURL}/getprofile/getUserProfile/${userId}`;
+		let url = `${baseURL}/getprofile/getUserProfile/${userObject.username}`;
 		await axios({
 			method: 'get',
 			url,
@@ -33,7 +35,7 @@ function ProfilePageUserHeader() {
 					).toString('base64')}`
 				);
 				setUserProfileData(user);
-				console.log(response.data);
+				// console.log(response.data);
 			})
 			.catch(function (error) {
 				console.log(error);
@@ -44,13 +46,13 @@ function ProfilePageUserHeader() {
 		if (userProfileData !== undefined && userProfileData !== null) {
 			return (
 				<div>
-					<ProfileUserNameComponent userNanme={userId} />
+					<ProfileUserNameComponent userNanme={userObject.username} />
 					<ProfilePageUserHeaderTitleComponent title={userProfileData.userTitle} />
 					<ProfilePageUserHeaderImageComponent profileImage={userProfileImage} />
 				</div>
 			);
 		} else {
-			return <div>waiting</div>;
+			return <div>waiting user may not have any links</div>;
 		}
 	};
 	return <div>{renderUserProfileData()}</div>;

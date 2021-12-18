@@ -24,15 +24,14 @@ const storage = multer.memoryStorage();
 let upload = multer({ storage: storage });
 
 router.route('/addUserProfile').post(upload.single('userPhoto'), (req, res) => {
-	// console.log(req.body);
-	// console.log(req.file);
 	const userName = req.body.userName;
 	const userProfileTitle = req.body.userTitle;
-	// const userImage = fs.readFileSync(req.file);
 	const userImage = req.file.buffer;
+	// console.log('here in addUserProfile ' + userImage);
+
+	//TO:DO To:do need to check the size of the image
 	const userImageFileType = req.file.mimetype;
 	const userImageOrgName = req.file.originalname;
-	console.log(userImage);
 	const newUserProfile = new UserProfile({
 		userName: userName,
 		userPhoto: userImage,
@@ -42,11 +41,7 @@ router.route('/addUserProfile').post(upload.single('userPhoto'), (req, res) => {
 	});
 	newUserProfile
 		.save()
-		.then(() =>
-			res
-				.status(201)
-				.json(`New User Profile data has been added successfully, ${userPhotoName}`)
-		)
+		.then(() => res.status(201).json(`New User Profile data has been added successfully`))
 		.catch((err) => {
 			console.log(err);
 			res.status(400).json(`Error now: ${err} `);

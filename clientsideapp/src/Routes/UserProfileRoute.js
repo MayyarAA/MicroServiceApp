@@ -8,4 +8,8 @@ const EditSingleLinkRoute = {
 	EditSingleLinkPage: '/EditSingleLinkPage',
 };
 
-export { UserProfileRoute, UserEditeRoute, EditSingleLinkRoute };
+const DefaultLoginPage = {
+	NativeLoginPage: '/login',
+};
+
+export { UserProfileRoute, UserEditeRoute, EditSingleLinkRoute, DefaultLoginPage };
